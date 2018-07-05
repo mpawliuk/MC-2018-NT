@@ -28,7 +28,7 @@ Students can also use the following resources:
 ### 1.1 Introduction
 
 * Introduction of people in class
-* Sample problems to piqued interest in number theory
+* Sample problems to pique interest in number theory
 	* Hotdogs come in pack of 10. Hotdog buns come in pack of 8. How much of each
 should you buy to not have any leftover hotdogs or buns?
 	* You have 2 containers with no markings. However, you know that container A can
