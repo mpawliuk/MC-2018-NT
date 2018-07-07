@@ -14,7 +14,11 @@ applications of number theory such as solving Diophantine equations and RSA encr
 
 ## Reference
 
-This class will follow the schedule below and as a class we will build a mini-textbook together.
+This class will follow the schedule below and as a class we will build a mini-textbook together. You can find the ongoing textbook here:
+
+> https://www.overleaf.com/17625866ycbvqbpvnhsp
+
+Please edit it and add comments, questions, thoughts, observations, applications, or anything else you think of! It's *our* document.
 
 Students can also use the following resources:
 
@@ -57,7 +61,7 @@ you make 1 liters? 10 liters? 15 liters?
 * Existence of prime factorization
 * Proof of infinite primes
 * Mention the related topics for primes
-	* Finding primes: sieves, asymptotic function, ect
+	* Finding primes: sieves, asymptotic function, etc.
 	* Efficient way to factorize integer
 	* Prime gaps
 
