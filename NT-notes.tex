@@ -1,0 +1,2063 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[utf8]{inputenc}
+
+% These packages are used for various math fonts. Url is for the bibliography
+\usepackage{amsmath,amssymb,amsfonts,amsthm,xcolor,url}
+
+% This is for making graphs
+\usepackage{tikz}
+% This is for citing code.
+\usepackage{minted}
+% This is a ham-fisted way to produce nice environments
+
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{fact}[thm]{Fact}
+
+\theoremstyle{definition}
+	\newtheorem{ex}[thm]{Example}
+	\newtheorem{exercise}{Exercise}
+	\newtheorem{remark}{Remark}
+	\newtheorem{question}[thm]{Question}
+    \newtheorem{observation}{Observation}
+    \newtheorem{thought}{Thought}
+    \newtheorem{application}{Application}
+	
+\numberwithin{thm}{section}
+
+\begin{document}
+
+\title{Number Theory}
+\author{Math Circle Summer 2018}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Introduction to this document %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction to this document}
+
+The following is a collection of notes, questions, theorems, definitions, problems, guesses, calculations, false starts, diagrams, and ideas. It was put together by the Summer 2018 students at Math Circle at Emory University July 9 - 27.
+
+Extra material and code will be stored at:
+\begin{center}
+	\url{https://github.com/mpawliuk/MC-2018-NT}
+\end{center}
+
+\subsection{Note to students}
+
+This is your document! Edit it, add to it, ask questions, answer questions of others, make observations, add solutions and proofs.
+
+This document is written in \LaTeX which is probably new for a lot of you. We'll work on it together. For now, try to imitate what you see already written, and keep it simple!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 1 - Introduction  %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 1-1. Introduction} 
+
+Let's jump right in! Math is about doing, it is not a spectator sport.\footnote{George P\' olya, How to Solve It: A New Aspect of Mathematical Method. 1945.}
+
+
+%%% 1.1 Fire-starting questions
+\subsection{Fire-starting questions}
+
+\begin{question} Hotdogs come in packs of 10. Hotdog buns come in pack of 8. How much of each should you buy to not have any leftover hotdogs or buns?
+\end{question}
+
+\begin{question} You have 2 containers with no markings. However, you know that container $A$ can hold a max amount of 3 liters. Container $B$ can hold a max amount of 4 liters. How do you make 1 liters? 10 liters? 15 liters?
+\end{question}
+
+\begin{question} There are $52! = 52 \cdot 51 \cdot \ldots 3 \cdot 2 \cdot 1$ ways to order a standard deck of cards. What is the ones digit of this number? What is its tens digit? Does this number have more or less than 100 digits when written out completely?
+\end{question}
+
+After thinking about these three questions we had the following observations, thoughts, attempts, generalizations and applications.
+
+\begin{observation} What did you notice?
+\end{observation}
+
+\begin{application} What else can you apply this to?
+\end{application}
+
+\begin{thought} What did this make you think of? What questions do you have?
+\end{thought}
+
+%%% 1.2 Divisibility rules
+\subsection{Divisibility rules}
+
+We can check that a number $n$ is divisible by $2,5,9$ or $10$ fairly quickly. 
+
+\begin{itemize}
+	\item 2 \ldots Check if the last digit of $n$ is $0,2,4,6$, or $8$.
+    \item 3 \ldots [?]
+    \item 4 \ldots [?]
+    \item 5 \ldots Check if the last digit of $n$ is $0$ or $5$.
+    \item 6 \ldots [?]
+    \item 7 \ldots [?]
+    \item 8 \ldots [?]
+    \item 9 \ldots Add the digits together. If that new number is divisible by $9$ then $n$ is as well.
+    \item 10 \ldots Check if the last digit is $0$.
+    \item 11 \ldots [?]
+\end{itemize}
+
+\begin{thought} Are there rules for other numbers like $3,4,6,7,8,11$?
+\end{thought}
+
+%%% 1.3 Introduction to Logic
+\subsection{Introduction to Logic}
+
+We will use mathematical logic to help us be precise when talking about numbers and their properties. These are tools for us to use to help us check the correctness of our ideas and arguments.
+
+\textbf{WARNING!} This section is dense, and can be scary. The way to approach it is by thinking of many examples for each concept. We will use this section as a reference, so it's okay if you don't process everything immediately.
+
+\textbf{True or False}. A statement can be either \textbf{True} or \textbf{False}. We want to know whether some statements about number theory are true or false. 
+
+For example, ``Every number is even." is false, and ``There is an even number larger than 101" is true.
+
+\textbf{Negation}. The negation of a statement is the precise opposite of the statement. We write $\neg P$. A statement and its negation always have opposite truth values; one is true, and the other false. 
+
+For example, the negation of ``Every number is even" is ``there is a number that is not even". The negation of ``There is an even number larger than 101." is ``There are no even numbers larger than 101" or you can say ``every number larger than 101 is not even". 
+
+\textbf{Implication}. One statement implies another if you can establish the second one from the first. We write $P \Rightarrow Q$. We also say ``if $P$, then $Q$".
+
+For example, ``$n$ is a multiple of $4$" implies "$n$ is even.". Also, ``$n$ is prime and greater than $2$" implies ``$n$ is odd".
+
+\textbf{Converse}. The converse of an implication is a statement made by reversing the direction of the implication.
+
+For example, ``If $n$ is a multiple of $4$, then $n$ is even." has converse ``If $n$ is even, then $n$ is a multiple of $4$." Be careful! That first implication is true, but its converse is false. e.g. $6$ is even, but is not a multiple of $4$.
+
+\textbf{Contrapositive}. The contrapositive of an implication $P \Rightarrow Q$ is the statement $\neg Q \Rightarrow P$. 
+
+For example, the contrapositive of ``If I go to the gym, then I will work out.'' is ``If I'm not working out, then it must be that I'm not at the gym."
+
+This seems strange, but it's very useful because \textbf{an implication and its converse are always both true, or both false}. So if you want to establish an implication, you can instead establish the contrapositive.
+
+\textbf{Establishing implications}. To show that an implication $P \Rightarrow Q$ is true, you need to show that $Q$ is true, whenever $P$ is true. That is, you can use $P$ to try to establish $Q$.
+
+To show that an implication $P \Rightarrow Q$ is false, you need to find an example of $P$ being true, but $Q$ is false. For example, ``If I carry an umbrella, then it will rain." is false because yesterday I carried an umbrella but it didn't rain! (This is called a \textbf{counterexample}.)
+
+\textbf{If and only if}. Two statements $P$ and $Q$ are equivalent if $P \Rightarrow Q$ and $Q \Rightarrow P$. We write $P \Leftrightarrow Q$ and say ``$P$ if and only if $Q$" ( or ``$P$ iff $Q$" for short).
+
+\textbf{Or}. When mathematicians use ``or'', they mean ``P is true, or Q is true, or both are true''. For example ``12 is even or 12 is a multiple of 6'' is true.
+
+\textbf{Universal quantifiers}. We will often want to talk about \text{all} numbers, or \textit{every} number of a certain type. If we want to be super technical we can write $\forall$ which means ``for all''.
+
+For example, ``Every number is even'' and ``All primes greater than 2 are odd'' use universal quantifiers.
+
+\textbf{Establishing universal statements}. To show that a universal statement is true you need to \ldots show that it's true for every thing it is talking about!
+
+To show that a universal statement is false you only need to give one example where it is false. e.g. ``Every number is even" is shown false by using the \textbf{counterexample} $3$.
+
+\textbf{Existential quantifiers}. Statements that say ``there exists a thing'' or ``there is a thing'' are called existential statements. We sometimes use $\exists$ (for there exists).
+
+For example, ``There is a multiple of 11 without repeating digits" and ``There exists a prime number between 20 and 25'' are both existential statements.
+
+\textbf{Establishing existential statements}. To show that an existential statement is true you need to \ldots show that such a thing actually exists! You don't need to produce the actual thing (a \textbf{witness}), but it's often easier that way.
+
+For example, ``There is a multiple of 11 without repeating digits'' is shown with the witness $132 = 11 \cdot 12$. The statement ``In any collection of 10 numbers, there is one that is at least as large as the average of all of them.'' can be proved without actually producing a witness.
+
+To show that an existential quantifier is false, you need to show that a witness cannot exist, which is the same as showing that all potential numbers are not witnesses.
+
+For example, ``There is an even prime number greater than 101" is false, since every even number $n$ larger than 101 must be divisible by $2$, and $2<n$, so $n$ is not prime.
+
+\begin{table}[!ht]\label{table:logic}
+\begin{tabular}{p{2cm}|p{2.5cm}|p{3cm}|p{3cm}|p{2.2cm}}
+\textbf{Symbols}            & \textbf{Words}          & \textbf{To prove a statement is true}           & \textbf{To prove a statement is false}             & \textbf{Notes}                   \\\hline
+$\neg P$                    & Negation                &                                                 &                                                    &                                  \\\hline
+$P \Rightarrow Q$           & Implication             & Assume $P$, deduce $Q$.                         & Show that $Q$ can be false, even when $P$ is true. &                                  \\\hline
+$Q \Rightarrow P$           & Converse                & Assume $Q$, deduce $P$.                         & Show that $P$ can be false, even when $Q$ is true. This is a counterexample. &                                  \\\hline
+$P \Leftrightarrow Q$       & If and only if          & Show $P \Rightarrow Q$ and $Q \Rightarrow P$.   & Show that one of the directions is false.          &                                  \\\hline
+$\neg Q \Rightarrow \neg P$ & Contrapositive          & Assume $\neg Q$, deduce $\neg P$.               & (Same as implication)                              & Same truth value as implication. \\\hline
+$\forall x P(x)$            & Universal               & Show $x$ has property $P(x)$ for every $x$.     & Find an $x$ without property $P(x)$. This is a counterexample.               &                                  \\\hline
+$\exists x P(x)$            & Existential             & Give an example of an $x$ with property $P(x)$. & Show that all $x$ fail to have property $P(x)$.    &                                  \\\hline
+$P \wedge Q$                  & And                     & Show $P$ and $Q$ are both true.                 & Show that $P$ is false, or $Q$ is false.           &                                  \\\hline
+$P \vee Q$                  & Or                      & Show $P$ is true, or $Q$ is true (or both).     & Show that both $P$ is false, and $Q$ is false.     &                                  \\\hline
+                            & Proof by contradiction  & Assume $P$ and $\neg Q$. Derive a contraction.  &                                                    & For proving implications.        \\\hline
+                            & Proof by contrapositive & Assume $\neg Q$, deduce $\neg P$.               &                                                    & For proving implications.       
+\end{tabular}
+\end{table}
+
+%%% 1.4 Exercises
+\subsection{Exercises}
+
+\begin{exercise} Use the divisibility rules to see if $n= 10890$ is a multiple of $2,3, \ldots, 11$.
+\end{exercise}
+
+\begin{exercise} Pair up these statements with their negation:
+\begin{enumerate}
+	\item ``Every number is a multiple of 2 and 3.''
+    \item ``No number is a multiple of 6.''
+    \item ``There is a number that is a multiple of 6.''
+    \item ``There exists a number that is not a multiple of either 2 or 3.''
+    \item ``Every multiple of 6 is also a multiple of $2$ and $3$.''
+    \item ``There is a number divisible by $2$ and $3$ that is not a multiple of $6$.''
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise} Is the statement ``There is no number is both even and odd'' a universal statement or an existential statement in your opinion? Can you write it in a way that makes it appear like a universal statement? 
+\end{exercise}
+
+\begin{exercise} If $P \Rightarrow Q$ and $Q \Rightarrow R$, are you allowed to conclude that $P \Rightarrow R$?
+\end{exercise}
+
+\begin{exercise} Does $P \Rightarrow P$?
+\end{exercise}
+
+\begin{exercise} In the land of Martinia, every person is over 100 years old. Also, in the land of Martinia, every person is less than 18 years old. How many people live in Martinia?
+\end{exercise}
+
+\begin{exercise} How are the statements ``$n$ is a composite number'' and ``$n$ is odd'' related? One of them implies the other, they are equivalent, or neither one implies the other? Establish each of your claims!
+\end{exercise}
+
+% 1.5 Other notes
+\subsection{Other Notes for Lecture 1-1.}
+
+[Do you want to add anything else?]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 1-2 - Number Systems  %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 1-2. Number Systems}
+
+What does ``number'' mean in ``number theory''? We better explain that before we do any number theory!
+
+%%% 1.2.1 Number systems
+\subsection{The major number systems}
+We will primarily use 4 different number systems:
+
+\begin{itemize}
+	\item $\mathbb{N}$, the natural numbers $1, 2, 3, \ldots$ We will also call these, whole numbers, or positive numbers. If we wish to include $0$ then we will say the ``non-negative integers''.
+    \item $\mathbb{Z}$, the integers, $\ldots, -2, -1, 0, 1, 2, \ldots$. 
+    \item $\mathbb{Q}$, the rational numbers are all numbers that can be written as a fraction $\frac{p}{q}$ where $p \in \mathbb{Z}$ and $q \in \mathbb{N}$. (``$\in$'' means ``is in'' or ``is an element of''.)
+    \item $\mathbb{R}$, the real numbers are all numbers that can be written in a decimal form. For example, $\pi = 3.14159\ldots$, or $\sqrt{2} = 1.4142\ldots$.
+\end{itemize}
+
+These sets form a hierarchy: every integer can be thought of as a rational number or as a real number.
+
+\begin{exercise} Give counterexamples to the claims ``Every integer is a natural number'' and ``Every rational number is an integer''.
+\end{exercise}
+
+\begin{question} Are there any real numbers that are not rational numbers? Think about this now and we'll answer it later.
+\end{question}
+
+\begin{exercise} How many different representations does a rational number have? Is there any way to talk about the ``best'' one, or the ``smallest'' one or the ``largest'' one?
+\end{exercise}
+
+% 1.2.2 Evens and Odds
+\subsection{Evens and Odds}
+
+We'll get to the question about numbers that aren't rational in a moment. For now lets practice our basic logic skills and learn about even and odd numbers.
+
+For us it is important that we be very precise about our definitions.
+
+\begin{dfn} The statement ``$n$ is even'' means ``$n \in \mathbb{Z}$ and there is a $m \in \mathbb{Z}$ such that $n = 2m$.''
+\end{dfn}
+
+\begin{dfn} The statement ``$n$ is odd'' means ``$n \in \mathbb{Z}$ and there is a $m \in \mathbb{Z}$ such that $n = 2m + 1$.''
+\end{dfn}
+
+It might be surprising to you that we didn't define even numbers in terms of their last digit. While this is equivalent, it makes it harder to prove things about even and odd numbers. In a couple of lectures we'll show that these are really the same thing, but for now, whenever we mention even or odd numbers, we will use these definitions.
+
+Lets prove a basic fact about even and odd numbers, to show off what a formal proof looks like. A \textbf{formal proof} should be a sequence of air-tight statements, each of which is either an assumption (or has been previously established), or can be justified as following from previous statements in the proof. For now, we will justify each step as we go. Later on we'll avoid mentioning the justification for very simple or elementary steps.
+
+\begin{thm} If $a$ is even, and $b$ is even, then $a+b$ is even.
+\end{thm}
+
+\begin{proof} This is an implication proof, so we assume that the ``if'' part of the statement is true. Namely, let's suppose that $a$ is even and $b$ is even. We will try to establish that $a+b$ is even.
+
+By definition, there is an integer $m_1$ such that $a = 2m_1$, and there is an integer $m_2$ such that $b=2m_2$.
+
+Now $a+b = 2m_1 + 2m_2$. (By substituting the above.)
+
+And $2m_1 + 2m_2 = 2(m_1 + 2m_2)$. (This is distributivity of multiplication over addition.) We also know that $m_1 + m_2$ is an integer, since $m_1$ and $m_2$ are both integers.
+
+Thus $a+b = 2(m_1 + 2m_2)$ and is an even number by definition.
+\end{proof}
+
+Now that's a long and wordy proof! We definitely won't write out every single line of justification for every single proof. But at least in theory, we could justify every single line of each proof we did.
+
+\begin{exercise} Prove the following basic facts and justify each step.
+\begin{enumerate}
+	\item The sum of any two odd numbers is even.
+    \item The sum of any odd number with any even number is odd.
+    \item The product of any even number with any number is even.
+    \item The product of any two odd numbers is odd.
+\end{enumerate}
+\end{exercise}
+
+One fact that is \textbf{not} obvious on its face from our definitions is whether a number can be both odd and even at the same time. If we used the ``last digits'' definition, then it \textit{would} be obvious, since a number cannot end in $1,3,5,7$, or $9$, and simultaneously end with $2,4,6,8$, or $0$.
+
+\begin{thm} If $a$ is even, then $a$ is not odd.
+\end{thm}
+
+To establish this fact, we use a technique called \textbf{proof by contradiction}, which is used to prove some types of implications. The idea behind proof by contradiction, is that you assume the ``if'' part (as usual) and then you also assume the negation of the ``then'' part. You then proceed as usual until you reach a \textbf{contradiction} (a statement which cannot possible be true, like $0 = 1$ or $10 < 0$). If you've justified each step from the previous steps, the only error has to be your original assumption of the negation of the ``then'' part. Since that was wrong, the negation must be false, i.e. the ``then'' part must be true.
+
+Let's see this in action.
+
+\begin{proof} Assume $a$ is even, and for the sake of contradiction, assume that $a$ is odd.
+
+Since $a$ is even, there is an integer $n$ such that $a = 2n$. Since $a$ is odd, there is an integer $m$ such that $n = 2m + 1$.
+
+So $2n = a = 2m+1$. Rearranging gives $2n - 2m = 1$. Factoring gives $2(n-m) = 1$. Now $n-m$ is an integer, but there are no integer solutions to $2x = 1$.
+
+So we have a contradiction.
+\end{proof}
+
+Proof by contradiction is a good choice when ``not having some property'' is not really easy to understand. In the previous case, ``being odd'' is something we have a definition for, but ``not being odd'' was not easy to deal with.
+
+Before we move on, we need one last fact:
+
+\begin{cor} If $n^2$ is even and $n$ is an integer, then $n$ is even.
+\end{cor}
+
+ This will be our first example of a \textbf{proof by contrapositive}. Earlier we remarked that a statement ``If $P$, then $Q$'' always has the same truth value as its contrapositive: ``if not $Q$, then not $P$.'' So to prove the statement we work with its contrapositive instead.
+
+\begin{proof} The contrapositive of this statement is [???]
+
+This is exactly a previous exercise.
+\end{proof}
+
+%%% 1.2.3 Irrational Numbers
+\subsection{Irrational Numbers}
+
+We go back to a question we asked in part 1: ``Are there any real numbers that are not rational?''
+
+\begin{dfn} ``$x$ is irrational'' means ``$x \in \mathbb{R}$ and $x$ is not rational.''
+\end{dfn}
+
+Notice that this is a ``negative'' definition, it defines irrational numbers in terms of what property they don't have. That means that to prove a number is irrational, we often use proof by contradiction; it's much easier to work with rational numbers.
+
+\begin{thm} $\sqrt{2}$ is irrational.
+\end{thm}
+
+\begin{proof} As mentioned above, it's natural to use proof by contradiction. So assume for the sake of contradiction that $\sqrt{2} = \frac{p}{q}$, where 
+$p \in \mathbb{Z}$ and $q \in \mathbb{N}$.
+
+It's not clear how we will get a contradiction, but for now let's clear the fraction and get rid of the square root somehow.
+
+By multiplying both sides by $q$ we get $q \sqrt{2} = p$.
+
+To get rid of the square root, we can square both sides, and get $q^2 2 = p^2$.
+
+[To finish, ask yourself how many factors of must $p$ and $q$ have.]
+\end{proof}
+
+%%% 1.2.4 Exercises
+\subsection{Exercises}
+
+\begin{exercise} Is $0$ an even number or an odd number? Why?
+\end{exercise}
+
+\begin{exercise} Show that $109$ is odd using the definition of odd.
+\end{exercise}
+
+\begin{exercise} Is it true that if $x + y$ is even, then $x$ and $y$ are both integers?
+\end{exercise}
+
+\begin{exercise} Find all natural numbers $n$ such that $\sqrt{n}$ is irrational.
+\end{exercise}
+
+\begin{exercise} Is $\phi$, the Golden ratio, irrational? $\phi = \frac{1 + \sqrt{5}}{2}$.
+\end{exercise}
+
+\begin{exercise} Is $\sqrt[3]{2}$ an irrational number?
+\end{exercise}
+
+\begin{exercise} Prove that a number is rational iff it has a decimal representation that eventually repeats. For example, $\frac{1}{6} = 0.16666 \ldots$, and $\frac{1}{11} = 0.090909\ldots$ (Hint: Try the backwards direction first.)
+\end{exercise}
+
+\begin{exercise} Using the previous exercise (whether you have proved it or not), construct an irrational number by explicitly writing out its decimal representation.
+\end{exercise}
+
+\begin{exercise} Give an example of an $x^y$ that is rational, even though both $x$ and $y$ are irrational. You may use the fact that $\pi, e, \ln(2)$, and $\phi$ are all irrational.
+\end{exercise}
+
+\begin{exercise} There is a classic proof by ``excluded middle'' of the fact that there are irrational numbers $a,b$, such that $a^b$ is rational. Find it using $\sqrt{2}^{\sqrt{2}}$ and $\sqrt{2}$.
+\end{exercise}
+
+\begin{exercise} Archimedes' principle is the fact that for every $x > 0$ (no matter how small), and for every $N \in \mathbb{N}$ (no matter how large), there is an $n$ such that $x\cdot n > N$.
+
+Use this to prove that for every two real numbers $a < b$, there is a rational number $\frac{p}{q}$ between $a$ and $b$. (Hint: First do this for $a=0$.)
+\end{exercise}
+
+\begin{exercise} Can $n!$ ever be a square number, with $n>1$?
+\end{exercise}
+
+%%% 1.2.5 Other Notes
+\subsection{Other notes}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 1-3 - Induction, Composites, and Primes  %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 1-3. Induction, Composites, and Primes}
+
+We've spoken about even and odd numbers, but now we will talk more generally about divisibility. This gets us into the world of prime numbers; the heart of number theory.
+
+%%% 1.3.1 Divisibility
+\subsection{Divisibility}
+
+In a way that is very similar to how we defined even numbers, we define divisibility.
+
+\begin{dfn} A number $n$ is divisible by $k$ if there is an integer $a$ such that $n = ka$.
+
+In this case we say ``$k$ is a factor of $n$'' or that ``$n$ is a multiple of $k$''.
+
+We write $k|n$ in this case. Occasionally we will write $k \not | n$ if $k$ does not divide $n$.
+\end{dfn}
+
+For example, $2 | 10$ (since $10 = 2 \cdot 5$), $7$ is a factor of $21$ (since $21 = 7 \cdot 3$) and $4 \not | 10$.
+
+\begin{exercise} Prove or disprove the following facts. If the statement is false, modify the statement to make it true (if possible).
+	\begin{enumerate}
+    	\item For each $n$, $n | n$.
+        \item $1$ is a factor of every number.
+        \item $0$ is a factor of every number.
+        \item Every number divides $0$.
+        \item If $a | b$ and $b | c$ then $a | c$.
+        \item If $a | c$ and $b | c$, then $(ab) | c$.
+        \item If $a | b$ and $b | a$, then $a = b$.
+    \end{enumerate}
+\end{exercise}
+
+%%% 1.3.2 Composites
+\subsection{Composites and Primes}
+
+\begin{dfn} A natural number $n$ is \textbf{composite} if there is a number $1 < m < n$, such that $m | n$.
+
+A natural number $n$ is \textbf{prime} if its only divisors are $1$ and $n$ (and $1 \neq n$).
+\end{dfn}
+
+\begin{thought} Do composite numbers have anything to do with rectangles and areas?
+\end{thought}
+
+Going through the first couple of numbers we see:
+
+\begin{table}[!ht]
+\begin{tabular}{r|l|l|l}
+   & Factors  & Composite? & Prime? \\\hline
+1  & 1        &            &        \\\hline
+2  & 1,2      &            & Yes    \\\hline
+3  & 1,3      &            & Yes    \\\hline
+4  & 1,2,4    & Yes        &        \\\hline
+5  & 1,5      &            & Yes    \\\hline
+6  & 1,2,3,6  & Yes        &        \\\hline
+7  & 1,7      &            & Yes    \\\hline
+8  & 1,2,4,8  & Yes        &        \\\hline
+9  & 1,3,9    & Yes        &        \\\hline
+10 & 1,2,5,10 & Yes        &       
+\end{tabular}
+\end{table}
+
+%%% 1.3.2 Is Prime?
+\subsection{Is a number prime?}
+
+Prime numbers are important for us, so we should have a good way of recognizing them. In this section we will develop a method of checking that a number is prime. We will start with the most basic, naive attempt, and make it progressively more sophisticated.
+
+\begin{exercise} Which of the following numbers are prime? $2018, 51, 91, 93, 97, 539$.
+\end{exercise}
+
+\begin{prop}[Prime checker Version 1] To check that a number $n$ is prime, it suffices to check that all numbers less than $n$ do not divide $n$.
+\end{prop}
+
+This method is very slow and tedious. When checking that a number is prime, if we know that it isn't divisible by $2$, then there's no way that it is divisible by $4$ or $6$ or any multiple of $2$. Similarly, if $3$ does not divide $n$, then $6$ and $9$ cannot divide $n$.
+
+Following this logic leads us to the following observation:
+
+\begin{prop} If $n$ is composite, then it has a prime factor.
+\end{prop}
+
+This seems totally obvious right? Well then how do we prove it, if it is so easy? We'll see that a little bit later. For now, let's take it on faith. Using this observation allows us to improve our prime checker.
+
+\begin{prop}[Prime checker Version 2] To check that a number $n$ is prime, it suffices to check that all \textit{primes} less than $n$ do not divide $n$.
+\end{prop}
+
+This version of the prime checker is one that you might already be familiar with.  It can still be improved though! We don't need to check \textit{all} primes less than $n$.
+
+\begin{thm} If a number $n$ is composite, then there is an $1 < a \leq \sqrt{n}$ such that $a | n$.
+\end{thm}
+
+\begin{exercise} Prove this theorem. (Use proof by contradiction, and look at the sizes of $a$ and $\frac{n}{a}$.)
+\end{exercise}
+
+\begin{cor} If a number $n$ has no (proper) factors between $1$ and $\sqrt{n}$, then $n$ is prime.
+\end{cor}
+
+This gives us an improved way to check if a number is prime.
+
+\begin{prop}[Prime checker Version 3] To check that a number $n$ is prime, it suffices to check that all primes less than or equal to $\sqrt{n}$ do not divide $n$.
+\end{prop}
+
+\begin{question} What are the advantages and disadvantages of this algorithm? Is it easy for humans to implement?
+\end{question}
+
+%%% 1.3.3 Prime Factorization
+\subsection{Prime Factorization}
+
+Every number can be written as the product of the primes that divide it. For example:
+\[
+	8 = 2^3, 12 = 2^2 \cdot 3, 1800 = 2^3 \cdot 5^2 \cdot 3^2, 41 = 41.
+\]
+This form will be easier to work with for many problems.
+
+To find the prime decomposition of a number $n$, we look for small primes that divide $n$, and then every time $p | n$, we put $p$ on a list and then replace $n$ by $\frac{n}{p}$.
+
+\begin{exercise} Find the prime decomposition for $51, 91, 93, 97, 539, 2016$.
+\end{exercise}
+
+It's not surprising that every number has a prime decomposition, but what might not occur to you is that it is essentially unique! There is really only one way to decompose a number into its prime factors.
+
+To show this we will use a technique called (strong) induction. which goes like this:
+
+\begin{thm}[Strong Induction/Minimal Counterexample] If you want to show that all natural numbers $n$ have some property $P(n)$, then it is enough to show that there is no smallest counterexample without the property.
+\end{thm}
+
+Using this we can show a proposition that we put off, and then prove the uniqueness of prime decomposition.
+
+\begin{prop} If $n>1$ is composite, then it has a prime factor.
+\end{prop}
+
+\begin{proof} Suppose for the sake of contradiction, that $n>1$ is the smallest counterexample. That means that $n$ has no prime factor, and in particular, is not prime itself. So $n$ must be composite, and it has a factor $a < n$. 
+
+Why are we not finished? This is not a contradiction yet, because we don't know that $a$ is prime.
+
+However, we know that $a < n$, and $n$ is the \textit{smallest} counterexample to our claim. So $a$ is not a counterexample, which means it has a prime factor $p$.
+
+Since $p | a$, and $a | n$, we must have $p | n$. Which is a contradiction.
+\end{proof}
+
+Now we can use a similar technique to show that prime decompositions are essentially unique. However, we're missing a technical lemma, so we'll complete this next week.
+
+\begin{thm} The prime decomposition of a number $n$ is unique (if you don't count multiplying by a bunch of $\pm 1$).
+\end{thm}
+
+%%% 1.3.4 Infinitely many primes
+\subsection{Infinitely many primes}
+
+We will now show a classic, beautiful result from Euclid that there are infinitely many prime numbers. Put another way, there is no largest prime.
+
+\begin{thm} There are infinitely many prime numbers.
+\end{thm}
+
+The major difficulty is that it seems very difficult to predict next primes. They seem to jump all over the place. This makes a constructive proof of this theorem quite challenging. Instead, we will do a proof by contradiction. That will give us something to work with: namely the (purported) finite set of all primes.
+
+As motivation, attempt the following exercise:
+
+\begin{exercise} Find a number $n > 1$ that is not divisible by $2$ or $3$ or $5$.
+\end{exercise}
+
+\begin{proof} Suppose for the sake of contradiction that there are only finitely many primes $p_1, p_2, \ldots, p_n$.
+
+Let $N = p_1 \cdot p_2 \cdot \ldots \cdot p_n + 1$.
+
+We know by a previous theorem that $N$ must have a prime factor, however, we can see that for each $p_i \not | N$. But that's all the primes! So this $N$ has no prime factors, a contradiction.
+\end{proof}
+
+%%% 1.3.5 Exercises
+\subsection{Exercises}
+
+\begin{exercise} Prove or disprove: If you take the first $n$ primes $p_1, p_2, \ldots p_n$ then $N = p_1 \cdot p_2 \cdot \ldots \cdot p_n + 1$ is prime.
+
+Explain how this connects with Euclid's proof of infinitely many primes.
+\end{exercise}
+
+\begin{exercise} The Sieve of Eratosthenes is an efficient way to find all the primes below some number (a \textit{sieve} is a type of filter). Perform the sieve as follows:
+\begin{enumerate}
+	\item Cross out 1. (It's not a prime.)
+    \item Cross out all multiples of $2$ (bigger than $2$).
+    \item Cross out all multiples of $3$ (bigger than $3$).
+    \item Cross out all multiples of $5$ (bigger than $5$).
+    \item Cross out all multiples of $7$ (bigger than $7$).
+\end{enumerate}
+All the numbers that remain will be prime! Explain why this works, and why we stopped at $7$.
+
+\includegraphics[scale=0.2]{grid}
+\end{exercise}
+
+\begin{exercise} \textbf{Part 1}. Find the length of the longest interval of composite numbers less than $100$. (Suggestion: First complete the Sieve of Eratosthenes.)
+
+\textbf{Part 2}. Recall that $n! = n(n-1)(n-2) \ldots 3 \cdot 2 \cdot 1$. Adapting the idea from Euclid's proof. Show that $n!+2, n!+3, \ldots,$ and $n!+ n$ are all composite numbers. This shows that you can make long intervals with no prime numbers.
+
+\textbf{Part 3 - challenge!}. The interval above has length $n-2$. Can you find an $n!+ (n + 1)$ is also composite? What about $n! + (n+2)$ as well? How far can you push it?
+\end{exercise}
+
+\begin{exercise} In Euclid's proof we said ``we can see that for each $p_i \not | N$.'' Um, why is that again? What's the proof?
+
+Recall that $N = p_1 \cdot p_2 \cdot \ldots \cdot p_n + 1$.
+\end{exercise}
+
+\begin{exercise} A composite number $n$ can be thought of as having at least one rectangle with integer dimensions (neither of which is $n$) that has area $n$. Call a natural number, $n$, a ``box composite'' if there is a rectangular box with integer dimensions (none of which is $n$) with volume $n$. State and prove a theorem that classifies all box composite numbers.
+\end{exercise}
+
+\begin{exercise} \textbf{Part 1}. Find the prime decomposition of $52! = 52 \cdot 51 \cdot 50 \cdot 49 \cdot 48 \cdot 47 \cdot 46 \cdot 45 \cdot 44 \cdot 43 \cdot 42 \cdot 41 \cdot 40 \cdot 39 \cdot 38 \cdot 37 \cdot 36 \cdot 35 \cdot 34 \cdot 33 \cdot 32 \cdot 31 \cdot 30 \cdot 29 \cdot 28 \cdot 27 \cdot 26 \cdot 25 \cdot 24 \cdot 23 \cdot 22 \cdot 21 \cdot 20 \cdot 19 \cdot 18 \cdot 17 \cdot 16 \cdot 15 \cdot 14 \cdot 13 \cdot 12 \cdot 11 \cdot 10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1$. You may wish to break up this task among many people. Work together!
+
+\textbf{Part 2}. Using the prime decomposition of $52!$, how many of its final digits can you determine?
+
+\textbf{Part 3 - Challenge!} Give an explicit function that outputs the number of $2$s that appear in the prime decomposition of $n!$.
+\end{exercise}
+
+\begin{exercise} ``Twin primes'' are numbers where $p$ and $p+2$ are both primes. It is an open question whether there are infinitely many of these pairs (called the ``twin prime conjecture''). If you solve this, you will get a million dollars!
+
+As a stepping stone for your solution to this million dollar problem, prove that there are at least 8 pairs of twin primes.
+\end{exercise}
+
+\begin{exercise} ``Triplet primes'' are numbers where $p$ and $p+2$ and $p+4$ are all primes. Show that there is only one set of triplet primes.
+\end{exercise}
+
+\begin{exercise} Find a prime number bigger than 1000.
+\end{exercise}
+
+\begin{exercise} The ``Goldbach conjecture'' is an unproven conjecture that says, ``Every even number greater than $2$ can be written as the sum of two primes''. Verify this is true for all numbers up to (and including) 100.
+\end{exercise}
+
+%%% 1.3.6 Other Notes
+\subsection{Other notes}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 1-4 - Division Algorithm - Part 1  %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 1-4. Division Algorithm (Part 1)}
+
+Today we'll look at dividing numbers and how it is related to common multiples and common divisors of two numbers. To start, let's come back to two exercises we gave in the first lecture.
+
+\begin{exercise} Hotdogs come in packs of 10. Hotdog buns come in pack of 8. How much of each should you buy to not have any leftover hotdogs or buns?
+\end{exercise}
+
+\begin{exercise} In a country with only \$4 bills and \$5 bills it is possible to make \$14 (1 \$4 bill and 2 \$5 bills), but it is impossible to make \$7.
+
+\textbf{Part 1}. What amounts are possible to make, and what amounts are impossible?
+
+\textbf{Part 2}. What is the first amount that has more than one way to make that amount?
+
+\textbf{Part 3}. How does the first part change if instead you only have access to \$8 bills and \$10 bills?
+\end{exercise}
+
+%%% 1.4.1 LCM
+\subsection{Least Common Multiple}
+
+\begin{dfn} The least common multiple of two integers $a,b$ is the smallest number $N$ such that $a | N$ and $b | N$. We denote this $\text{LCM}(a,b)$.
+\end{dfn}
+
+Here are some examples:
+
+\begin{table}[!ht]
+\begin{tabular}{r|r|l}
+$a$ & $b$ & $\text{LCM}(a,b)$ \\\hline
+2   & 3   & 6                 \\
+15  & 9   & 45                \\
+3   & 24  & 24               
+\end{tabular}
+\end{table}
+
+The LCM is the answer to one of our starting exercises!
+
+\begin{question} Hotdogs come in packs of 10. Hotdog buns come in pack of 8. How much of each should you buy to not have any leftover hotdogs or buns?
+\end{question}
+
+The answer to this question has to do with the $\text{LCM}(8,10) = 40$. You would like to get $40$ hotdogs, and $40$ buns. That means $40/10 = 4$ packs of hotdogs, and $40/8 = 5$ packs of buns.
+
+The LCM can be \textbf{visualized} by using a number line.
+
+\begin{exercise} Find all multiples of $3$, all multiples of $5$, and all common multiples of both. Identify $\text{LCM}(3,5)$. Are there any other patterns you notice?
+\begin{center}
+\includegraphics[scale=0.15]{grid}
+\end{center}
+\end{exercise}
+
+If you have the prime decomposition of $a$ and $b$, the LCM is particularly straightforward to find.
+
+For example, $\text{LCM}(3^2, 3^5) = 3^5$, and $\text{LCM}(3^2 2^7, 3^5 2^4) = 3^5 2^7$. Let's write this down to remember. Even though the technical statement is a little hard to remember, the examples should help you remember.
+
+First for one prime.
+
+\begin{prop} If $a = p_n$ and $b = p_m$, and $N$ is the larger of $n,m$, then $\text{LCM}(a,b) = p^N$.
+\end{prop}
+
+Now in full generality.
+
+\begin{prop} To find the LCM of two numbers written in prime decomposition, take the largest power from each prime that appears in one of the two numbers.
+\end{prop}
+
+%%% 1.4.2 GCD
+\subsection{Greatest Common Divisor}
+
+The LCM of two numbers is somewhat useful in number theory, but the far mar useful notion is the \textbf{greatest common divisor}.
+
+\begin{dfn} The greatest common divisor of two integers $a,b$ is the largest number $N$ such that $N | a$ and $N | b$. We denote this $\text{GCD}(a,b)$.
+\end{dfn}
+
+Here are some examples:
+
+\begin{table}[!ht]
+\begin{tabular}{r|r|l}
+$a$ & $b$ & $\text{GCD}(a,b)$ \\\hline
+2   & 3   & 1                 \\
+15  & 9   & 3                 \\
+18   & 24  & 6               
+\end{tabular}
+\end{table}
+
+Just like in the LCM case, if you have the prime decomposition of $a$ and $b$, the GCD is particularly straightforward to find.
+
+For example, $\text{GCD}(3^2, 3^5) = 3^2$, and $\text{GCD}(3^2 2^7, 3^5 2^4) = 3^2 2^4$. Let's write this down to remember. Even though the technical statement is a little hard to remember, the examples should help you remember.
+
+First for one prime.
+
+\begin{prop} If $a = p_n$ and $b = p_m$, and $M$ is the \textit{smaller} of $n,m$, then $\text{GCD}(a,b) = p^M$.
+\end{prop}
+
+Now in full generality.
+
+\begin{prop} To find the GCD of two numbers written in prime decomposition, take the smallest power from each prime that appears in one of the two numbers.
+\end{prop}
+
+The most important case is when two numbers have $\text{GCD}(a,b) = 1$. This means that they are "disjoint" in the sense that they share no prime factors.
+
+We will see GCD appear many times in this course!
+
+%%% 1.4.3 Division Algorithm
+\subsection{Division Algorithm}
+
+We end with dividing two numbers. Before we see the division algorithm, we notice the following way to write ``7 divided by 3''.
+\begin{enumerate}
+	\item $7 = 3 \cdot 3 - 1$,
+	\item $7 = 2 \cdot 3 + 1$,
+    \item $7 = 1 \cdot 3 + 4$,
+    \item $7 = 0 \cdot 3 + 7$,
+    \item $7 = -1 \cdot 3 + 10$.
+\end{enumerate}
+
+Which one is your favourite? Which one do you think is the most natural?
+
+The major division algorithm is hidden in the proof of the following theorem:
+
+\begin{thm} Pick $n$ (large), $m > 0$ (smaller), There are unique number $q$ (for quotient) and $r$ (for remainder) such that
+\[
+	n = qm + r
+\]
+with $0 \leq r < m$.
+\end{thm}
+
+This is a theorem we have used many times before, although maybe we haven't thought of it like this before. A couple notes about it:
+\begin{enumerate}
+	\item This theorem claims \textbf{existence} (there are numbers $q,r$ that satisfy this) and \textbf{uniqueness} (there are only one pair of numbers that work for this).
+    \item The proof will actually give an effective (but slow) way to find these $q$ and $r$.
+\end{enumerate}
+
+\begin{proof} We will only prove existence (because uniqueness is not particularly enlightening).
+
+The idea is to start with $n = 0 \cdot m + n$. If this works (i.e. $0 \leq n < m$) then we have nothing left to do.
+
+Otherwise, $m \geq n$, so we ``subtract off an $m$'', or in other words, move it into the quotient.
+
+So $n = 1 \cdot m + (n-m)$.
+
+We continue subtracting off and checking, until after some number (say $k$) we get the $(n-km)$ part is less than $m$. This must happen because we are subtracting a positive amount from $n$ each round. This cannot continue forever.
+\end{proof}
+
+In practice this algorithm is very slow! See the exercises to see how slow it is.
+
+%%% 1.4.4 Exercises
+\subsection{Exercises}
+
+\begin{exercise} Which of the following pairs of numbers (1,2,3,4,5,6,7,8,9,10) have GCD 1? Make a hypothesis from the data you gather, then test it.
+\end{exercise}
+
+\begin{exercise} Find the LCM of the following pairs of numbers $(1,2,3,4,5,6,7,8,9,10)$. Make a hypothesis from the data you gather, then test it.
+\end{exercise}
+
+\begin{exercise} Show that $a\cdot b = \text{LCM}(a,b)\cdot\text{GCD}(a,b)$. (Use the prime decomposition of $a$ and $b$.)
+\end{exercise}
+
+\begin{exercise} Use the Euclidean division algorithm with $n = 20$ and $m = 2$. How many steps does it take to find the answer? (Notice that you can probably just say what the answer is without having to use this algorithm.)
+\end{exercise}
+
+\begin{exercise} Does the Euclidean division algorithm work for negative numbers? What happens with $n = -7, m = 3$ or if $n = 7, m = -3$, or if $n = -7, m=-3$? Does the proof we gave still work, or does it need to be adapted? If so, try to fix it.
+\end{exercise}
+
+\begin{exercise} Prove or disprove: If $\textbf{GCD}(a,b) = 1$ and $\textbf{GCD}(b,c) = 1$, then $\textbf{GCD}(a,c) = 1$.
+\end{exercise}
+
+\begin{exercise} Prove or disprove: For every pair $a,b$ we have $\textbf{GCD}(a,b) | \textbf{LCM}(a,b)$.
+\end{exercise}
+
+\begin{exercise} Let $\phi(n)$ be the cardinality (or number of elements) of the collection of all $1 \leq i < n$ such that $\gcd(i,n) = 1$. Show that $\phi(14) = |\{1,3,5,9,11,13\}| = 6$.
+\end{exercise}
+
+\begin{exercise} The largest $\phi(n)$ can be is $n-1$. Find some examples where this happens. Make a hypothesis from the data you gather, then test it.
+\end{exercise}
+
+\begin{exercise} What is the smallest value of $\phi(n)$ you can find? What about the smallest value of $\frac{\phi(n)}{n}$?
+\end{exercise}
+
+
+%%% 1.4.5 Other Notes
+\subsection{Other notes}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 2-1 - Division Algorithm - Part 2  %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 2-1. Division Algorithm (Part 2)}
+
+The division algorithm can be adapted to give an algorithm for finding the GCD of two numbers. This seemingly basic algorithm has far reaching consequences for number theory and algebra.
+
+%%% 2.1.1 Examples
+\subsection{Examples}
+
+Rather than describe the algorithm in general terms, we'll produce many examples, from which the general algorithm should be clear.
+
+One major idea is the following: If $k | n$ and $k | m$ then $k|(n-m)$. (In fact, that is the reason it works!)
+
+%%% 2.1.X Examples
+\subsection{Examples}
+
+\textbf{Example 1}. Consider $a = 84$ and $b = 35$. We get the following string of equations from applying the division algorithm repeatedly:
+\begin{enumerate}
+	\item $84 = 2 \cdot 35 + 14$,
+    \item $35 = 2 \cdot 14 + 7$,
+    \item $14 = 2 \cdot 7$. [STOP.]
+\end{enumerate}
+When we stop we know that the final quotient (7) is the GCD of $84$ and $35$.
+
+\textbf{Example 2}. Consider $a = 1071$ and $b = 462$. We get the following string of equations from applying the division algorithm repeatedly:
+\begin{enumerate}
+	\item $1071 = 2 \cdot 462 + 147$,
+    \item $462 = 3 \cdot 147 + 21$,
+    \item $147 = 7 \cdot 21$. [STOP.]
+\end{enumerate}
+When we stop we know that the final quotient (21) is the GCD of $1071$ and $462$.
+
+\textbf{Exercise}. Using the algorithm, find the GCD of $a = 1008$ and $b= 99$.
+
+%%% 2.1.X Lin Comb
+\subsection{Linear Combinations}
+
+This algorithm has an additional purpose in that it can find linear combinations of $a$ and $b$ that make up $\text{GCD}(a,b)$. That is, it finds integers $x,y$ such that $xa + yb = \text{GCD}(a,b)$.
+
+The idea is to back substitute the equations given by the algorithm until everything is written in terms of multiples of $a$, multiples of $b$ and the GCD of $a$ and $b$.
+
+\textbf{Example 1}. For $a = 84$ and $b = 35$ we got
+\begin{enumerate}
+	\item $84 = 2 \cdot 35 + 14$,
+    \item $35 = 2 \cdot 14 + 7$, [Start here.]
+    \item $14 = 2 \cdot 7$.
+\end{enumerate}
+This gives $7 = 35 - 2 \cdot 14$ and the first equation gives $84 - 2 \cdot 35 = 14$. Replacing the 14 in the first equation gives
+\[
+	7 = 35 - 2(85 - 2 \cdot 35) = 5 \cdot 35 - 2 \cdot 85
+\]
+We will see the full power of these linear combinations in the next lecture.
+
+%%% 2.1.X Fibonacci Numbers
+\subsection{Fibonacci Numbers}
+
+The Fibonacci numbers are a beautiful sequence of numbers defined recursively. The first two numbers are both 1, and then the next ones are achieved by adding up the previous two.
+
+So the first handful are:
+\[
+ 1,1,2,3,5,8,13,21,34,55,89, \ldots
+\]
+In symbolic language we would write:
+\[
+	F_n = F_{n-1} + F_{n-2}, \text{ with } F_1 = F_2 = 1
+\]
+This is a \textbf{recursive} definition.
+
+The Fibonacci numbers have some very lovely number theoretic properties which we'll see in the exercises. Now we will look at how we can use the technique of \textbf{induction} to establish statements about recursive objects.
+
+\begin{thm} \textbf{Proof by Induction}. To prove that a property $P(k)$ holds for all natural numbers $k$, it is enough to show:
+\begin{enumerate}
+	\item $P(1)$ is true, and
+    \item $P(k)$ implies $P(k+1)$.
+\end{enumerate}
+\end{thm}
+
+Think about dominoes: If you knock down the first domino it will knock over the next one, and the next one, etc.. and each domino will get knocked over eventually.
+
+Proof by induction is useful for number theory in general, and Fibonacci numbers in particular.
+
+\begin{thm} The sum of the squares of the first $n$ Fibonacci numbers is $F_n \cdot F_{n+1}$.
+\end{thm}
+
+\begin{proof} The statement $P(n)$ is true for $n=1$ as 
+\[
+	F_1^2 = 1^2 = 1 \cdot 1 = F_1 \cdot F_2.
+\]
+Now assume $P(n)$ is true for $n$. i.e.
+\[
+	F_1^2 + F_2^2 + \ldots + F_n^2 = F_{n}F_{n+1}.
+\]
+So now we know
+\[
+	F_1^2 + F_2^2 + \ldots + F_n^2 + F_{n+1}^2 = F_{n}F_{n+1} + F_{n+1}^2
+\]
+The Righthand side, by factoring is $F_{n+1}(F_n + F_{n+1})$ which is also $F_{n+1} F_{n+2}$ by the defining property of the Fibonacci numbers. So
+\[
+	F_1^2 + F_2^2 + \ldots + F_n^2 + F_{n+1}^2 = F_{n+1}F_{n+2}
+\]
+as desired. So by induction, we have the result for all $n$.
+\end{proof}
+
+
+%%% 2.1.X Exercises
+\subsection{Exercises}
+
+\begin{exercise} Find the GCD of $a = 124$ and $b = 32$, by using the GCD algorithm. Use that to find a solution to $ax + by = \text{GCD}(a,b)$.
+\end{exercise}
+
+\begin{exercise} The GCD algorithm takes a long time if you use two adjacent Fibonacci numbers. Check this for $a = 34$ and $b = 55$. How many steps did it take? Can you generalize this result?
+\end{exercise}
+
+\begin{exercise} Does the GCD algorithm always output a remainder of $0$ after finitely many steps, or can it run forever? Explain your reasoning.
+\end{exercise}
+
+\begin{exercise} Why does the GCD algorithm work? In other words, why is the final remainder always the GCD of the numbers we started with? (Hint: Look at the GCD of consecutive remainders in the proof.)
+\end{exercise}
+
+\begin{exercise} Suppose that you have found a pairs of numbers $x,y$that satisfy $ax + by = d$, and $d >0$. What relationship does $d$ have to $a$ and $b$? What happens in the special case of $d = 1$?
+\end{exercise}
+
+\begin{exercise} What is the GCD of consecutive Fibonacci numbers?
+\end{exercise}
+
+\begin{exercise} Can you predict which of the Fibonacci numbers will be even? (Gather data, make a hypothesis, try to prove it.) Can you find a more general statement?
+\end{exercise}
+
+\begin{exercise} Find a formula for the sum of the first $n$ Fibonacci numbers. 
+\end{exercise}
+
+\begin{exercise} There is only one square Fibonacci number larger than $1$. Find it.
+\end{exercise}
+
+\begin{exercise} Find a formula for the sum of the first $n$ \textit{odd-index} Fibonacci numbers.
+\end{exercise}
+
+\begin{exercise} Find a formula for the sum of the first $n$ \textit{even-index} Fibonacci numbers.
+\end{exercise}
+
+\begin{exercise} What is the GCD of any two Fibonacci numbers $F_n$ and $F_m$? Make a table of data.
+\end{exercise}
+
+\begin{exercise} The following data has been gathered from Fibonacci numbers. Find a pattern, or a special subset of numbers.
+
+\begin{table}[ht!]
+\begin{tabular}{l|l|l}
+$x$ & $5x^2+4$ & $5x^2 - 4$ \\ \hline
+1 & 9 & 1 \\
+2 & 24 & 16 \\
+3 & 49 & 41 \\
+5 & 129 & 121 \\
+8 & 324 & 316 \\
+13 & 849 & 841 \\
+21 & 2209 & 2201
+\end{tabular}
+\end{table}
+\end{exercise}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 2-2 - Diophantine Equations        %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 2-2. Linear Diophantine Equations}
+
+%%% 2.2.1 Intro
+\subsection{Introduction}
+
+Our main goal is to find $x,y$ that solve equations like:
+\[
+	7x + 11y = 12 
+\]
+These are called \textbf{linear Diophantine equations}. Then, once we've found a single solution, we'd like to find \textit{all} solutions.
+
+Last class we saw how to solve equations of the form
+\[
+	ax + by = \gcd(a,b)
+\]
+This is called \textbf{Bezout's Identity}. By \textit{Drake's multiplication trick}, we can also solve
+\[
+	ax + by = C \cdot \gcd(a,b)
+\]
+for any integer $C$, by multiplying the original solution by $C$. i.e.
+\[
+	ax + by = \gcd(a,b)
+\]
+so
+\[
+	a(Cx) + b(Cy) = C \cdot \gcd(a,b).
+\]
+In the special case that $a$ and $b$ are relatively prime, then every equation of the form
+\[
+	ax + by = C
+\]
+has a solution.
+
+\begin{exercise} Find a solution to $7x + 11y = 12$ by first using the GCD algorithm, then multiplying by 12.
+\end{exercise}
+
+There is a converse to Bezout's identity.
+
+\begin{thm} For every pair of integers $x,y$, the number $ax + by$ is a multiple of $\gcd(a,b)$.
+\end{thm}
+
+The above is particularly useful for showing that $\gcd(a,b) = 1$.
+
+\begin{thm} If you find a pair of integers $x,y$ such that $ax+by = 1$, then $\gcd(a,b)=1$.
+\end{thm}
+
+\begin{exercise} You are told that $ax + by = -2$ for a particular pair $x,y$. What can you say about $\gcd(a,b)$?
+\end{exercise}
+
+%%% 2.2.2 Families of solutions
+\subsection{Families of solutions}
+
+Now that we know what kinds of linear Diophantine equations we can solve, we can ask the more general question ``What are all possible solutions to a linear Diophantine equation?''
+
+To answer this we look at a simple example first:
+
+\begin{exercise} Find 5 solutions to $7x + 3y = 1$. 
+\end{exercise}
+
+\begin{table}[!ht]
+\begin{tabular}{r|r|r}
+$x$  & $y$   & $m$  \\ \hline
+$1$  & $-2$  & $0$  \\
+$-2$ & $5$   & $-1$ \\
+$4$  & $-9$  & $1$  \\
+$7$  & $-16$ & $2$ 
+\end{tabular}
+\end{table}
+
+\begin{exercise} What is the general form of these numbers?
+\end{exercise}
+
+\[
+	(1 + 3m, -2 -7m)
+\]
+
+\begin{exercise} By plugging $x = 1+3m$ and $y = -2-7m$ into $7x+3y$, show that you always get $1$.
+\end{exercise}
+
+More generally, we have the following
+\begin{thm} If $x_0, y_0$ is a solution to $ax+by=n$, then the complete set of solutions is given by
+\[
+	\left(x_0 + m\frac{b}{\gcd(a,b)}, y_0 - m\frac{a}{\gcd(a,b)} \right)
+\]
+where $m \in \mathbb{Z}$.
+\end{thm}
+
+The proof will be in the exercises.
+
+%%% 2.2.3 Minimal number
+\subsection{Minimal number that cannot be reached}
+
+We mentioned it earlier, but now we'll provide a full theorem.
+
+\begin{thm} If $\gcd(a,b)=1$, then the smallest number that cannot be written in the form $ax+by$ (with $x,y \geq 0$) is
+\[
+	(a-1)(b-1) - 1 = ab - a - b.
+\]
+\end{thm}
+
+For example, in a country with only \$4 bills and \$5 bills, the smallest amount you cannot make is $20-4-5 = 11$.
+
+This proof would take us too far afield, but would make a good end-of-camp project.
+
+%%% 2.2.4 Exercises
+\subsection{Exercises}
+
+\begin{exercise} Write down the general set of solutions to $84x + 35y = 7$. Recall that yesterday we found a solution to this equation.
+\end{exercise}
+
+\begin{exercise} \label{ex:bens} How many ways are there to make \$100 by only using \$10 bills and \$20 bills? To solve this, set up a linear Diophantine equation and find its full set of solutions. Then decide how many of those solutions give reasonable physical interpretations in this question.
+\end{exercise}
+
+\begin{exercise} You are stranded on an island without a calculator, but lots of paper and working pens. Describe in a step-by-step manner how you would find all solutions to $2019x + 93y = 11$.
+\end{exercise}
+
+\begin{exercise} You are stranded on an island without a calculator, but lots of paper and working pens. Describe in a step-by-step manner how you would find all solutions to $2019x + 93y = 12$.
+\end{exercise}
+
+\begin{exercise} Show that if $\gcd(a,c)=1$ and $\gcd(b,c)=1$ then $\gcd(ab,c) = 1$. (Hint: Use Bezout's identity.)
+\end{exercise}
+
+\begin{exercise} (Related to exercise \ref{ex:bens}.) Make a conjecture about the number of \textit{positive} integer solutions (both $x,y>0$) an equation $ax+by=n$ can have when $a,b,n >0$. Prove it. 
+\end{exercise}
+
+\begin{exercise} Make a conjecture about the number of \textit{mixed} integer solutions ($x$ and $y$ have opposite signs) an equation $ax+by=n$ can have when $a,b,n >0$. Prove it. 
+\end{exercise}
+
+The next three exercises prove that our theorem about the solutions of a linear Diophantine equation is correct.
+
+\begin{exercise} Show that if $x_0, y_0$ is a solution to $ax+by=n$, then every number of the form
+\[
+	\left(x_0 + m\frac{b}{\gcd(a,b)}, y_0 - m\frac{a}{\gcd(a,b)} \right)
+\]
+is also a solution to $ax+by=n$.
+\end{exercise}
+
+\begin{exercise} (You will need this for the next exercise.) Show that $\frac{a}{\gcd(a,b)}$ and $\frac{b}{\gcd(a,b)}$ have $\gcd$ 1.
+\end{exercise}
+
+\begin{exercise} Show that if $x_0, y_0$ and $x_1, y_1$ are both solutions to $ax+by=n$, then
+\[
+	\frac{a}{\gcd(a,b)}(x_0 - x_1) = -\frac{b}{\gcd(a,b)}(y_0 - y_1)
+\]
+and so by the previous exercise, there must be an integer $m$ such that $(x_0 - x_1) = m \frac{b}{\gcd(a,b)}$ and $y_0-y_1 = -m \frac{b}{\gcd(a,b)}$.
+\end{exercise}
+
+\begin{exercise} (The chicken McNugget problem) Chicken McNuggets come in packages of 3, 9 or 20. We know that since $\gcd(3,20) = 1$ every combination at or above $(20-1)(3-1) = 38$ can be made. What are the impossible combinations between $1$ and $37$?
+\end{exercise}
+
+\begin{exercise} (AIME 1994 Problem 11) Ninety-four bricks, each measuring $4''\times10''\times19'',$ are to be stacked one on top of another to form a tower 94 bricks tall. Each brick can be oriented so it contribues $4''\,$ or $10''\,$ or $19''\,$ to the total height of the tower. How many different tower heights can be achieved using all ninety-four of the bricks?
+\end{exercise}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 2-3 - Modular Arithmetic, part 1 %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 2-3. Modular Arithmetic, part 1}
+
+%    Definition of congruence
+%    Definition of modulo
+%    Congruence class
+%    (Maybe equivalence relation)
+%    Modular arithmetic
+%    Test for divisibility (application modular arithmetic)
+
+%%% 2.3.1 Intro
+\subsection{Introduction}
+
+
+Our main goal today is to establish the basics of ``modular arithmetic'' or ``clock arithmetic''.
+
+\begin{question} If it is 10 AM, what time will it be in 3 hours? What about in 25 hours?
+\end{question}
+
+Obviously it will be 1 PM, or 11AM. Implicitly, we take $10+3=13$, but we remove any $12$s, so that we get $13 - 12 = 1$. In other words, since multiples of $12$ don't matter, we say that
+\[
+	13 \equiv 1 \mod 12
+\]
+or if we're being sloppy,
+\[
+	13 = 1 \mod 12
+\]
+or if we're being super sloppy,
+\[
+	13 = 1.
+\]
+In our second example, $10 + 25 = 35 = 11 + 2\cdot 12$, so
+\[
+	35 \equiv 11 \mod 12.
+\]
+\begin{exercise} If it is 3PM, what time will it be in $280$ hours?
+\end{exercise}
+
+Note $280 = 240 + 40 = 240 + 48 - 8$, so in $280$ hours, 12 days (less 8 hours) will have passed. So $280$ hours after $3$PM is $7$AM.
+
+%%% 2.3.2 Defns
+\subsection{Definitions}
+
+\begin{dfn} We say that $a$ is congruent to $b$ modulo $n$, if $b-a$ is a multiple of $n$. We write this as
+\[
+	a \equiv b \mod n
+\]
+\end{dfn}
+
+\begin{exercise} Which of the following are true?
+\begin{enumerate}
+	\item $45 \equiv -3 \mod 12$,
+    \item $13 \equiv 7 \mod 2$,
+    \item $201 \equiv 87 \mod 10$.
+    \item $117 \equiv 0 \mod 9$.
+\end{enumerate}
+\end{exercise}
+
+The special case of $a \equiv 0 \mod n$ is worth pointing out.
+
+\begin{prop} A number $a \equiv 0 \mod n$ if and only if $a$ is a multiple of $n$.
+\end{prop}
+
+This allows us to visualize the numbers that are congruent to $0$. We call this the \textbf{congruence class} of $0$, and represent it as $[0]_n$.
+
+\begin{exercise} What are the elements of $[1]_3$? That is, what are the numbers that are congruent to $1$, mod $3$?
+\end{exercise}
+
+[See picture in class for the break down of the equivalence classes on the number line, for $n=3$.]
+
+Because of this, we can take a representative from each class. We'll use the classes $[0], [1], [2], \ldots, [n-1]$ when working mod $n$.
+
+\textbf{example} When working mod $2$, $[0]$ is the collection of even numbers, and $[1]$ is the collection of odd numbers.
+
+%%% 2.2.1 Intro
+\subsection{Basic properties}
+
+Modular arithmetic is very well behaved, and allows us to simply calculations as we go.
+
+\begin{prop} For any numbers $a,b,n$ you can compute $(a + b) \mod n$ and $(ab) \mod n$ by first reducing $a \mod n$ and $b \mod n$, and then performing the operation.
+\end{prop}
+
+This proposition can save us a lot of work!
+
+\begin{exercise}. What conjugacy class, mod 3, does $52!$ belong to?
+\end{exercise}
+
+%%% 2.3.4 
+\subsection{Working mod 10}
+
+\begin{observation} $x \mod 10$ is the final digit of $x$.
+\end{observation}
+
+This observation is incredibly useful! It allows us to compute the final digit of a potentially very large number.
+
+\textbf{Example}. What is the final digit of $2^{2018}$? It is not feasible to compute $2^{2018}$ explicitly, and then look at its final digit. Instead we notice the following:
+
+\begin{table}[!ht]
+\begin{tabular}{l|l}
+$i$ & $2^i \mod 10$ \\ \hline
+1   & 2             \\
+2   & 4             \\
+3   & 8             \\
+4   & 6 (=16)       \\
+5   & 2 (=12)       \\
+6   & 4             \\
+7   & 8             \\
+8   & 6             \\
+9   & 2             \\
+\end{tabular}
+\end{table}
+
+So it repeats every 4. If we want to get super fancy about it, then we have
+
+\begin{table}[!ht]
+\begin{tabular}{l|l}
+$i \mod 4$ & Final digit \\ \hline
+0          & 6           \\
+1          & 2           \\
+2          & 4           \\
+3          & 8          
+\end{tabular}
+\end{table}
+
+So to find the final digit of $2^{2018}$ it is enough to find $2018 \mod 4$. But $2018 = 2000 + 16 +2 \mod 4 = 0 \mod 4 + 0 \mod 4 + 2 \mod 4 = 2 \mod 4$.
+
+So the final digit of $2^{2018}$ is $4$.
+
+%%% 2.3.4 
+\subsection{Divisibility rules revisited}
+
+Using modular arithmetic can simplify the statements of some divisibility rules.
+
+\begin{prop} $x \equiv 0 \mod 4$ iff $x \equiv 0,4,8,12,16 \mod 20$.
+\end{prop}
+
+\begin{prop} $n \mod 9$ is equivalent to the sum of the digits of $n$. In particular, $n$ is divisible by $9$ if and only if the sum of its digits is divisible by $9$.
+\end{prop}
+
+%%% 2.3.5 
+\subsection{Cool thing about squares}
+
+\begin{prop} A perfect square $n^2$ must be congruent to $0$ or $1$ mod 4.
+\end{prop}
+
+\begin{proof} We make quick work of this, by case analysis.
+
+\begin{table}[!ht]
+\begin{tabular}{l|l}
+$n \mod 4$ & $n^2 \mod 4$ \\ \hline
+0          & 0           \\
+1          & 1           \\
+2          & 4 = 0        \\
+3 =-1      & 1          
+\end{tabular}
+\end{table}
+\end{proof}
+
+%%% 2.2.4 Exercises
+\subsection{Exercises}
+
+\begin{exercise} If January 1 of this year was a Monday, what day of the week will next year start with?
+\end{exercise}
+
+\begin{exercise} What is the final digit of of $3^{2018}$?
+\end{exercise}
+
+\begin{exercise} What is the final digit of of $4^{2018}$?
+\end{exercise}
+
+\begin{exercise} What is the final digit of of $5^{2018}$?
+\end{exercise}
+
+\begin{exercise} What is the final digit of of $6^{2018}$?
+\end{exercise}
+
+\begin{exercise} What is the final digit of of $i^{2018}$? where $0\leq i < 10$?
+\end{exercise}
+
+\begin{exercise} Can a perfect square number end in $3$? What are the possible ending digits of a perfect square? If you claim that a perfect square can end in the digit $i$, you must give an example where this happens.
+\end{exercise}
+
+\begin{exercise} What are the possible ending digits of a number $n^4$? What about $n^8$? Make a conjecture.
+\end{exercise}
+
+\begin{exercise} Is $111 \cdots 1114$ ever equal to an $n^4$?
+\end{exercise}
+
+\begin{exercise} What are the possible congruency classes of $n^3 \mod 8$?
+\end{exercise}
+
+\begin{exercise} Show that the polynomial $x^6 - x^2 + 8x - 10$ cannot have any \textit{integer} solutions by showing that it has no solutions congruent to $0$ mod 4, or 1 or 2 or 3 mod 4.
+\end{exercise}
+
+\begin{exercise} For an odd number $n$, define $n!! = n(n-2)(n-4)\cdots(5)(3)(1)$. Find the final digit of $2017!!$.
+\end{exercise}
+
+\begin{exercise} Show that $2x \equiv 7 \mod 10$ has no solutions.
+\end{exercise}
+
+\begin{exercise} Use Bezout's Identity to show that the equation $ax \equiv 1 \mod n$ always has a solution if $\gcd(a,n) = 1$, (treat $a$ like a constant). This says that $a$ has a multiplicative inverse mod $n$.
+\end{exercise}
+
+\begin{exercise} Prove that equivalence mod $n$ is an equivalence relation. That is, show:
+\begin{itemize}
+	\item $a \equiv a \mod n$ for each $a$,
+    \item If $a \equiv b \mod n$, then $b \equiv a \mod n$,
+    \item If $a \equiv b \mod n$ and $b \equiv c \mod n$, then $a \equiv c \mod n$.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise} (Vishnu's house of morbid curiosities and grotesque logic.) What is $2018 \mod 1$? What about $2018 \mod 0$?
+\end{exercise}
+
+\begin{exercise} Can someone please explain the ``Doomsday Rule'' to me? See \url{https://en.wikipedia.org/wiki/Doomsday_rule}.
+\end{exercise}
+
+\begin{exercise} (Canada National Olympiad 2003) What are the final three digits of $2003^{2002^{2001}}$?
+\end{exercise}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 2-4 - Chinese Remainder Theorem    %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 2-4. Chinese Remainder Theorem}
+
+%  The Chinese Remainder Theorem (Story, Statement, and Proof)
+%  Generalize Chinese Remainder Theorem
+%  Example of application of CRT
+
+
+%%% 2.4.1 Intro
+\subsection{Introduction}
+
+The very first problem involving the (now called) Chinese Remainder theorem is from the third century
+
+\begin{question} There are certain things whose number is unknown. If we count them by threes, we have two left over; by fives, we have three left over; and by sevens, two are left over. How many things are there?
+\end{question}
+
+\begin{exercise} Translate this question into three statements involving modular arithmetic. (Use $x$ for the unknown quantity.)
+\end{exercise}
+
+\begin{itemize}
+	\item $x \equiv 2 \mod 3$,
+    \item $x \equiv 3 \mod 5$,
+    \item $x \equiv 2 \mod 7$.
+\end{itemize}
+
+\begin{exercise} Find an integer $x$ that satisfies all three of these equations simultaneously. (Hint: there is a solution less than 50.)
+\end{exercise}
+
+It turns out that $23$ works. (I took $[2]_7$ and wittled it down from there.)
+
+\begin{observation} If $23 + 105$ is also a solution, as are $23 + k105$.
+\end{observation}
+
+%%% 2.4.2 Statement
+\subsection{Statement of the CRT}
+
+The Chinese Remainder Theorem says that multiple modular equations can always be solved (so long as the moduli are all relatively prime).
+
+\begin{thm} Let $n_1, n_2, n_3$ share no common factors, and let $0\leq a_1 < n_1$, $0 \leq a_2 < n_2$, and $0 \leq a_3 < n_3$. Then there is exactly one solution between $0$ and $N = n_1 \cdot n_2 \cdot n_3$ to the equations: 
+\begin{itemize}
+	\item $x \equiv a_1 \mod n_1$,
+    \item $x \equiv a_2 \mod n_2$,
+    \item $x \equiv a_3 \mod n_3$,
+\end{itemize}
+\end{thm}
+
+This generalizes to any number of equations. We will show in the exercises that the ``no common factors'' condition is very important.
+
+%%% 2.4.3 Basic (slow) solution
+\subsection{Basic (inductive) solution}
+
+The most basic way to solve these, is to write down what these mean in terms of multiples (instead of mod). Then plug that into one of the equations. Do this systematically for each equation, going from the largest modulus to the smallest.
+
+\textbf{Example}. Let's systematically solve the classic problem:
+\begin{itemize}
+	\item $x \equiv 2 \mod 3$,
+    \item $x \equiv 3 \mod 5$,
+    \item $x \equiv 2 \mod 7$.
+\end{itemize}
+
+First we write out that the third equation means $x = 7k+2$ (for some integer $k$). Putting this into equation $2$ we get:
+\[
+	(7k+2) \equiv 3 \mod 5
+\]
+or 
+\[
+	7k \equiv 1 \mod 5
+\]
+So $k \equiv 3 \mod 5$. This means $k= 5j+3$ for some integer $j$. So 
+\[
+	x = 7(5j + 3) + 2 = 35j + 23
+\]
+Now we plug this into our first equation:
+\[
+	35j + 23 \equiv 2 \mod 3
+\]
+Which reduces to
+\[
+	35j + 23 \equiv 2 \mod 3
+\]
+or
+\[
+	35j \equiv 0 \mod 3
+\]
+So $j=3i$ will work. I.e.
+\[
+	x = 35j + 23 = 35(3i)+23 = 105i + 23
+\]
+And indeed that is our solution for any integer $i$.
+
+\begin{exercise} Let's get into it immediately! Use this method to solve the following set of equations:
+\begin{itemize}
+	\item $x \equiv 1 \mod 2$,
+    \item $x \equiv 2 \mod 3$,
+    \item $x \equiv 3 \mod 5$.
+\end{itemize}
+\end{exercise}
+
+In the exercises, we will develop a faster, but more computationally intense way to solve these.
+
+%%% 2.4.4 Applications
+\subsection{Applications}
+
+The CRT has a number of fun applications. One involves greatly simplifying computational work.
+
+\textbf{Example}. Find the final two digits of $74^{2018}$.
+
+To find the final two digits of a number we work mod 100, or (very cleverly) work mod 25 and mod 4 (which have GCD 1). We want to solve:
+\begin{itemize}
+	\item $x \equiv 74^{2018} \mod 25$,
+    \item $x \equiv 74^{2018} \mod 4$.
+\end{itemize}
+By reducing, this is equivalent to solving
+\begin{itemize}
+	\item $x \equiv (-1)^{2018} \mod 25 \equiv 1 \mod 25$,
+    \item $x \equiv 2^{2018} \mod 4 \equiv 0 \mod 4$.
+\end{itemize}
+This is an application of the CRT.
+
+$x \equiv 1 \mod 25$ so $x = 25k + 1$. Substituting into the second equation gives
+\[
+	25k+1 \equiv 0 \mod 4.
+\]
+i.e.
+\[
+	25k \equiv 3 \mod 4.
+\]
+so $k\equiv 3 \mod 4$. i.e. $k = 4j+3$. Subbing back gives
+\[
+	x = 25(4j+3) + 1 = 100j + 76.
+\]
+So the final two digits are 76.
+
+\begin{exercise} For this question, the base $76$ was rather special. What property of $76$ did we use that was special? Can you name 3 other numbers that we could have used in this example instead?
+\end{exercise}
+
+%%% 2.4.X Exercises
+\subsection{Exercises}
+
+\begin{exercise} Does the following system of equations have a solution?
+\begin{itemize}
+	\item $x \equiv 2 \mod 5$,
+    \item $x \equiv 3 \mod 15$,
+\end{itemize}
+Explain why, and explain why the CRT does not guarantee it has a solution.
+\end{exercise}
+
+\begin{exercise} Propose a method for finding the final three digits of $126^{2018}$, then actually find them. What other numbers does your method (easily) work for?
+\end{exercise}
+
+\begin{exercise} [Problem from Brilliant.org] Show that there are 10 consecutive numbers that are all divisible by a perfect square. Use the following system of equations:
+\begin{itemize}
+	\item $x \equiv -1 \mod n_1^2$,
+    \item $x \equiv -2 \mod n_2^2$,
+    \item \ldots
+    \item $x \equiv -9 \mod n_{10}^2$,
+\end{itemize}
+What $n_i$ can you choose that will allow you to use the CRT? Once you've solved this, generalize the statement; what parts of it can be modified?
+\end{exercise}
+
+\begin{exercise} (IMO  1989) (Use the idea of the previous exercise.) Prove  that  for  every  positive  integer $n$, there  exists $n$ consecutive positive integers such that none of them is a power of a prime. \footnote{If you like these types of contest problems, see the notes by Evan Chen from 2015 called ``The Chinese Remainder Theorem''.}
+\end{exercise}
+
+Recall that yesterday, in the exercises, we showed that Bezout's Identity could always be used to solve equations of the form $ax \equiv 1 \mod n$ if $\gcd(a,n) = 1$. A solution to this is called the \textbf{multiplicative inverse of $a$, mod $n$}. We denote this by $a^{-1}$ (but \textit{never} write $a^{-1} = \frac{1}{a}$).
+
+\begin{exercise} Show that if $\gcd(a,n) = 1$, then $ax \equiv 1 \mod n$ has at most one solution between $0$ and $n$. In other words, $a^{-1}$ is unique.
+\end{exercise}
+
+\begin{exercise} Consider the system of equations from the CRT, (with the same conditions as in that theorem).
+\begin{itemize}
+	\item $x \equiv a_1 \mod n_1$,
+    \item $x \equiv a_2 \mod n_2$,
+    \item $x \equiv a_3 \mod n_3$.
+\end{itemize}
+Let $N = n_1 \cdot n_2 \cdot n_3$. Show that
+\[
+	x = a_1 b_1 \frac{N}{n_1} + a_2 b_2 \frac{N}{n_2} + a_3 b_3 \frac{N}{n_3} \mod N
+\]
+is a solution to the equations, where $b_i$ is a solution to $b_i \left( \frac{N}{n_i}\right) \equiv 1 \mod n_i$.
+\end{exercise}
+
+\begin{exercise} Use the previous exercise to give an alternate solution to the classic CRT problem:
+\begin{itemize}
+	\item $x \equiv 2 \mod 3$,
+    \item $x \equiv 3 \mod 5$,
+    \item $x \equiv 2 \mod 7$.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise} (Vishnu's house of morbid curiosities and grotesque logic.) Does the following system of equations have an integer solution?
+\begin{itemize}
+	\item $x \equiv 1 \mod \frac{3}{2}$,
+    \item $x \equiv 2 \mod \frac{7}{3}$.
+\end{itemize}
+\end{exercise}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 3-1 - Zn    %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 3-1. $\mathbb{Z}_n$}
+
+% Introduce groups and rings
+% Z n and properties of Z n
+% Wilson’s Theorem
+% Elementary encryption
+
+
+%%% 3.1.1 Intro
+\subsection{Introduction}
+
+Today we're going to talk about groups and rings. This is about \textit{algebraic} number theory.
+
+\textbf{Example}. Find (individual) solutions to the following equations:
+
+\begin{itemize}
+	\item $x + 1 \equiv 0 \mod 5$
+    \item $x + 2 \equiv 0 \mod 5$
+    \item $x + 3 \equiv 0 \mod 5$
+    \item $x + 4 \equiv 0 \mod 5$
+    \item $x + 0 \equiv 0 \mod 5$
+\end{itemize}
+
+That was easy! Now for something harder:
+
+\begin{itemize}
+	\item $x \cdot 1 \equiv 1 \mod 5$
+    \item $x \cdot 2 \equiv 1 \mod 5$
+    \item $x \cdot 3 \equiv 1 \mod 5$
+    \item $x \cdot 4 \equiv 1 \mod 5$
+    \item $x \cdot 0 \equiv 1 \mod 5$
+\end{itemize}
+
+Each of these has a solution, except the last one. ($1 \cdot 1 \equiv 1, 2 \cdot 3 \equiv 1, 4 \cdot 4 \equiv 1$.)
+
+%%% 3.1.2 Group
+\subsection{Groups}
+
+\begin{dfn} A set of elements $G$ together with an operation $*$ is a \textbf{group} if it satisfies:
+	\begin{enumerate}
+    	\item There is an element $e \in G$ where $a * e = a$ for every $a \in G$. This is called the \textbf{identity element}.
+        \item For each $a \in G$, there is an element $b \in G$ where $a * b = e$. This is called the \textbf{inverse} of $a$, and is denoted $a^{-1}$.
+    	\item $(a * b)*c = a * (b * c)$, for all $a,b,c \in G$. This is called \textbf{associativity}.
+    \end{enumerate}
+\end{dfn}
+
+For example, the elements $[0]_5, [1]_5, [2]_5, [3]_5, [4]_5$ form a group under addition mod $5$. The identity is $[0]_5$, the inverse of $[i]$ is $[5-i]$. This group is called $\mathbb{Z}_5$. More generally, $\mathbb{Z}_n$ is a group under addition mod $n$.
+
+We will also often assume that the operation is \textbf{commutative}, that is $a+b = b+a$. Such a group is called \textbf{Abelian}.
+
+Other examples of groups include:
+\begin{itemize}
+	\item The rational numbers with addition.
+    \item Polynomials with real coefficients, with addition. 
+    \item All rotations of a sphere centred at the origin.
+    \item All finite strings of $F,B,U,D,L,R$ and $F^{-1}, B^{-1}, U^{-1},L^{-1},R^{-1}$ which correspond to performing rotations on a Rubik's cube. The operation is to combine the strings one after another, called \textbf{concatenation}. This group has $2^{27}3^{14}5^3 7^2 11$ many elements. Notably this is not an Abelian group.
+\end{itemize}
+
+\textbf{Exercise}. Find the identity in each of these groups, and describe how you find the inverse from an element.
+
+Some non-examples of groups include:
+\begin{itemize}
+	\item The irrational numbers with addition.
+    \item $\mathbb{Z}_5$ under multiplication.
+    \item Polynomials with real coefficients, with multiplication.
+\end{itemize}
+
+\textbf{Exercise}. Show that these are not groups!
+
+%%% 3.1.2 Rings
+\subsection{Rings}
+
+For many of the above non-examples, they naturally come with two operations: addition (which forms a group) and multiplication (which doesn't form a group, but does have a multiplicative identity). Such a thing will be called a \textbf{Ring}. (There's a bit more to this, but that's all we really need for now.)
+
+Other examples of groups include:
+\begin{itemize}
+	\item The rational numbers with addition and multiplication.
+    \item Polynomials with real coefficients, with addition and multiplication. 
+    \item $\mathbb{Z}_n$, with addition mod $n$ and multiplication mod $n$.
+\end{itemize}
+
+Rings don't have to have multiplicative inverses. For example:
+
+\begin{itemize}
+	\item $x \cdot 1 \equiv 1 \mod 6$ [Unit]
+    \item $x \cdot 2 \equiv 1 \mod 6$ [No Soln]
+    \item $x \cdot 3 \equiv 1 \mod 6$ [No Soln]
+    \item $x \cdot 4 \equiv 1 \mod 6$ [No Soln]
+    \item $x \cdot 5 \equiv 1 \mod 6$ [Unit]
+    \item $x \cdot 0 \equiv 1 \mod 6$ [No Soln]
+\end{itemize}
+
+In this case, only $1$ and $5$ have multiplicative inverses,and are called \textbf{units}. In other cases, like in $\mathbb{Z}_5$, every non-zero number has a multiplicative inverse.
+
+\textbf{Exercise}. Find the units of $\mathbb{Z}_7$ and $\mathbb{Z}_{10}$. What's going on?
+
+\begin{thm} The units in $\mathbb{Z}_n$ are exactly the numbers between $1 \leq i < n$ that are relatively prime to $n$.
+\end{thm}
+
+The proof is by Bezout's identity.
+
+\begin{cor} Every non-zero element of $\mathbb{Z}_p$ is a unit, if $p$ is a prime.
+\end{cor}
+
+Not only this, but the structure of the units is very strong. They come in pairs.
+
+\begin{table}[!ht]
+\begin{tabular}{l|l}
+$a$ & $a^{-1}$ \\ \hline
+1   & 1        \\
+2   & 4        \\
+3   & 5        \\
+4   & 2        \\
+5   & 3        \\
+6   & 6       
+\end{tabular}
+\end{table}
+
+\begin{thm} The units in $\mathbb{Z}_p$ come in distinct pairs, except for $1$ and $-1$.
+\end{thm}
+
+To prove this we first need a new idea!
+
+%%% 3.1.3 Lagrange
+\subsection{Lagrange's Theorem}
+
+\textbf{Exercise}. Does $x^2 + 1$ have any roots? What if you work mod $5$?
+
+\begin{dfn} The ring $\mathbb{Z}_n [x]$ is the collection of polynomials with coefficients in $\mathbb{Z}_n$.
+\end{dfn}
+
+\begin{thm} (Lagrange's Theorem) A polynomial of degree $k$ in $\mathbb{Z}_p [x]$ has at most $k$ roots, if $p$ is prime.
+\end{thm}
+
+We will omit a proof of this because it will take us too far off course. However, it uses induction on the degree of the polynomial, and the fact that every non-zero element of $\mathbb{Z}_p$ is a unit.
+
+\begin{cor} $x^2 \equiv 1 \mod p$ has exactly two solutions, $x=1,-1$.
+\end{cor}
+
+\begin{cor} Every unit in $\mathbb{Z}_p$ other than $1,-1$ is not self-inverse, and is part of a pair with a different element.
+\end{cor}
+
+%%% 3.1.2 Wilson's Theorem
+\subsection{Wilson's Theorem}
+
+The fact that units come in pairs is a key fact in the following result:
+
+\begin{thm} $(n-1)! \equiv -1 \mod n$ if and only if $n$ is prime.
+\end{thm}
+
+\textbf{Exercise}. Show that if $n$ is composite, then $(n-1)! \equiv 0 \mod n$ unless, $n=4$, in which case $(n-1)! = 3! \equiv 2 \mod 4$.
+
+\begin{proof} If $n$ is prime, $(n-1)! = 1 \cdot 2 \cdot \ldots \cdot (n-1)$. Rearrange so that each unit (other than $1,-1$) is next to its distinct inverse. They will cancel leaving only $(n-1)! \equiv 1 \cdot -1 \mod n$.
+\end{proof}
+
+The idea in this proof for $\mathbb{Z}_7$ is that $1 \cdot 2 \cdot 3 \cdot 4 \cdot 5 \cdot 6 = 1 (6)(2 \cdot 4) (3 \cdot 5) \equiv 1 (-1)(1)(1) = 1$.
+
+%%% 3.1.2 Cryptography
+\subsection{Basic Cryptography}
+
+In week 1 we learned about affine ciphers. These are of the form $mx + b \mod 26$ where $m = 1,3,5,7,9,11,15,17,19,21,23$ or $25$ and $0 \leq b < 26$. The collection of valid $m$ are precisely those that can be inverted/deciphered using $m^{-1}(y-b)$. These valid $m$ are the units of $\mathbb{Z}_{26}$.
+
+In the next two days we will learn more sophisticated versions of cryptography using $\mathbb{Z}_n$.
+
+%%% 3.1.X Exercises
+\subsection{Exercises}
+
+\begin{exercise} Check Wilson's Theorem for $n=5$, $n=6$ and $n=7$.
+\end{exercise}
+
+\begin{exercise} Discuss the relevance of Wilson's Theorem as a way to check if a number is prime. Is it practical to use it?
+\end{exercise}
+
+\begin{exercise} Show that if $n=9$, then $(n-1)! \equiv 0 \mod n$.
+\end{exercise}
+
+\begin{exercise} Show that if $n=15$, then $(n-1)! \equiv 0 \mod n$.
+\end{exercise}
+
+\begin{exercise} Show that if $n$ is composite, then $(n-1)! \equiv 0 \mod n$ unless, $n=4$, in which case $(n-1)! = 3! \equiv 2 \mod 4$. (Break it up into the cases where $n$ is a square, and when it isn't.)
+\end{exercise}
+
+\begin{exercise} Find a formula for the quantity $(m!)^{2} \mod p$, where $p=2m+1$. Prove it by rearranging $(p-1)! \mod p$.
+\end{exercise}
+
+\begin{exercise} Let ${p}$ be a prime number such that dividing ${p}$ by 4 leaves the remainder 1. Show that there is an integer ${n}$ such that $n^2 + 1$ is divisible by ${p}$. (Hint: Use the previous exercise.)
+\end{exercise}
+
+\begin{exercise} Show that $x^2 - x$ has more than $2$ solutions in $\mathbb{Z}_6$. Does this contradict Lagrange's theorem?
+\end{exercise}
+
+\begin{exercise} ``God's number'' is the least number of moves needed to get from any configuration of a Rubik's cube back to the starting configuration. Through intense computation it was determined that this number is 20. What does this mean for the Rubik's group?
+\end{exercise}
+
+\begin{exercise} Does $\mathbb{Z}_p [x]$ have any units besides the non-zero constants when $p$ is a prime? What about $\mathbb{Z}_n$ in general?
+\end{exercise}
+
+\begin{exercise} If $p$ is prime, determine the value of $(p-2) \mod p$.
+\end{exercise}
+
+\begin{exercise} Compute $94! \mod 97$. (Adapt the result and technique from the previous exercise.)
+\end{exercise}
+
+\begin{exercise} (Vishnu's house of morbid curiosities and grotesque logic.) There are ways to weaken the structure of a group.
+\begin{itemize}
+	\item A \textbf{monoid} is a group, except there may not be inverses for each element. For example, compressing a picture is a monoid.
+	\item A \textbf{semigroup} is a monoid, except it may not have an identity element.
+    \item A \textbf{magma} is a semigroup, except its operation may not be associative. 
+\end{itemize}
+
+Monoids and semigroups are useful when measuring compressions or information loss. For example, the rational numbers between $0 < \frac{p}{q} < 1$ form a semigroup. Come up with an example of a set and an operation that is a magma, but not a semigroup.
+\end{exercise}
+
+\begin{exercise} A \textbf{wilson prime} is a prime number $p$ such that $p^2$ divides $(p-1)! + 1$. There are only three known Wilson primes. Find them.
+\end{exercise}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 3-1 - Zn    %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 3-2. Euler's Phi function.}
+
+% Euler’s Phi-function
+% Euler’s Theorem.
+% Exponent modulo n
+% RSA encryption
+
+%%% 3.2.1 Intro
+\subsection{Introduction}
+
+Last class we looked at the \textit{units} of $\mathbb{Z}_n$. Our major result was:
+
+\begin{thm} The units in $\mathbb{Z}_n$ are exactly the numbers between $1 \leq i < n$ that are relatively prime to $n$.
+\end{thm}
+
+We use this to define the Euler $\phi$ function, or the Euler Totient function.
+
+\begin{thm} For $n \geq 1$, $\phi(n)$ is the amount of integers $1 \leq i \leq n$ such that $\gcd(i,n) = 1$.
+\end{thm}
+
+\textbf{exercise}. Compute $\phi(n)$ for $2 \leq n \leq 24$.
+
+\begin{table}[!ht]
+\begin{tabular}{l|l|l|l}
+$n$ & $\phi(n)$ & $n$ & $\phi(n)$ \\ \hline
+    &           & 13  & 12        \\
+2   & 1         & 14  & 6         \\
+3   & 2         & 15  & 8         \\
+4   & 2         & 16  & 8         \\
+5   & 4         & 17  & 16        \\
+6   & 2         & 18  & 6         \\
+7   & 6         & 19  & 18        \\
+8   & 4         & 20  & 4         \\
+9   & 6         & 21  & 12        \\
+10  & 4         & 22  & 10        \\
+11  & 10        & 23  & 22        \\
+12  & 4         & 24  & 8        
+\end{tabular}
+\end{table}
+
+\textbf{Remarks}. 
+\begin{enumerate}
+	\item $\phi(p) = p-1$, for $p$ a prime. 
+    \item $\phi(pq) = (p-1)(q-1)$. for $p,q$ primes.
+    \item $\phi(p^2) = p^2 - p$, for $p$ a prime.
+    \item $\phi(p^k) = p^k - p^{k-1}$, $p$ a prime.
+    \item $\phi(a,b) = \phi(a)\phi(b)$, if $\gcd(a,b) = 1$. i.e. $\phi$ is multiplicative for relatively prime numbers.
+\end{enumerate}
+
+The proof of $\phi(p^k) = p^k - p^{k-1}$ is an Inclusion/Exclusion argument. I'll skip the proof that $\phi$ is multiplicative (although this uses the Chinese Remainder Theorem).
+
+\textbf{Exercise}. Compute $\phi(256)=128$ and $\phi(242) = \phi(2 \cdot 11^2) = \phi(2) \phi(11^2) = 1 \cdot (11^2 - 11) = 110$.
+
+%%% 3.2.2 Euler's Theorem
+\subsection{Euler's Theorem}
+
+In previous classes we looked at the problem of computing the final digit of a number to a large power. The method for establishing this was by finding patterns in when the powers started to repeat. We are now able to say exactly what these periods are.
+
+\textbf{Example}. The final digit of $3^{2018}$ is given by
+
+\begin{table}[!ht]
+\begin{tabular}{l|l}
+$i$ & $3^i \mod 10$ \\ \hline
+1   & 3             \\
+2   & 9             \\
+3   & 7             \\
+4   & 1             \\
+5   & 3             \\
+6   & 9             \\
+7   & 7             \\
+8   & 1             \\
+9   & 3             \\
+\end{tabular}
+\end{table}
+
+\textbf{Remarks}. This runs through the units of $\mathbb{Z}_10$ and has period $4 = \phi(10)$.
+
+\begin{thm} (Euler's Theorem) If $\gcd(a,n) = 1$, then $a^{\phi(n)} \equiv 1 \mod n$, and [$a^1, a^2, \ldots, a^{\phi(n)}$ run through all distinct units of $\mathbb{Z}_n$ - LIE!].
+\end{thm}
+
+If $\gcd(a,n) \neq 1$ then we can still say something. (Remember back to our exercise about what the final digits of $i^{2018}$ are for $0 \leq i < 10$. In all cases the period was $1,2$ or $4$.)
+
+\begin{thm} For all $0 \leq a < n$, $a^n \equiv a \mod n$.
+\end{thm}
+
+\begin{dfn} The order of a unit $x \in \mathbb{Z}_n$ is the least number $k$ such that $a^k \equiv 1 \mod n$. [By Euler's theorem, this is $\phi(n)$ - LIE!].
+\end{dfn}
+
+%%% 3.2.3 RSA Encryption
+\subsection{RSA Encryption}
+
+Euler's Phi function is a key ingredient in a method of encryption called RSA (Rivest–Shamir–Adleman). It is a method that underpins a lot of online security. It is very important.
+
+\textbf{Exercise}. Find the prime factorization of $5183$.
+
+It relies on the fact that it is hard, even for computers to find the prime factors of a large (600+ digits) number. These numbers are the product of two prime numbers with 300+ digits each.
+
+\textbf{Major observation}. If $de \equiv 1 \mod N$, then $(m^d)^e = m^{de} \equiv x \mod N$.
+
+We will code a message using $m$, we will allow people to see $e$ (to encrypt the message) and we will keep $d$ secret (to decrypt the message). This way people will send us $m^e$ and we will compute the secret message by raising it to the power $d$.
+
+\textbf{How to compute $e,d$?}
+
+\begin{enumerate}
+	\item Let's start with $N = 5183 = 71 \cdot 73$. 
+    \item Compute $\phi(n) = 70 \cdot 72 = 5040$. (Keep this secret!)
+    \item Choose any $1 < e < 5040$, that is relatively prime to $5040$, e.g. $e = 2033$.
+    \item Solve $ed \equiv 1 \mod \phi(n)$. In our case, $d = 3617$. (Keep this secret.)
+    \item Release $(N, e)$ as the \textbf{public key}. Anyone can send you a message.
+\end{enumerate}
+
+e.g. Let's send the message "NO" to the user by coding it alphanumerically as $1415$ (N-O).
+
+The message is $m = 1415$. The encoded message is $m^{2033} \mod N \equiv 2715$.
+
+To decode this we compute $2715^{3617} \mod 5183 = 1415$.
+
+%%% 3.2.X Exercises
+\subsection{Exercises}
+
+\begin{exercise} Find the value of $\phi(30)$ in two ways: (1) use the formula for $\phi(n)$, and (2) directly find the numbers between $1$ and $n-1$ that are relatively prime to $30$.
+\end{exercise}
+
+\begin{exercise} Compute $\phi(360)$ (\textit{no scope}).
+\end{exercise}
+
+\begin{exercise} What is the value of $ 20^{12} \mod 13$?
+\end{exercise}
+
+\begin{exercise} Using primes between $27$ and $100$ (or larger if you really want), set up your own public key. Put it on the board for people to send you messages. 
+\end{exercise}
+
+\begin{exercise} You may have noticed that all the $\phi(n)$ are even, except $\phi(1)$. Why is this? When is $\phi(n)$ divisible by $4$? Make a more general statement.
+\end{exercise}
+
+\begin{exercise} Suppose that $x$ divides $y$.  How do $\phi(x)$ and $\phi(y)$ relate to each other? Gather data, make a hypothesis, test it, refine it, then prove it.
+\end{exercise}
+
+\begin{exercise} Determine a pattern for
+\[
+	f(n) = \sum_{d | n} \phi(d)
+\]
+where the sum is taken over all divisors of $n$ (other than $1$). For example, $f(6) = \phi(1) + \phi(2) + \phi(3) + \phi(6)$. Prove it for any special cases you can, like primes, the product of two primes, or powers of primes.
+\end{exercise}
+
+\begin{exercise} Determine a pattern for
+\[
+	f(n) = \sum_{k, \gcd(k,n) = 1} k
+\]
+where the sum is taken over all numbers less than $n$, that are relatively prime with $n$. For example, $g(10) = 1 + 3 + 7 + 9$. Prove it for any special cases you can, like primes, the product of two primes, or powers of primes.
+\end{exercise}
+
+\begin{exercise} Caroline has sent you the message $3011$ using the public key from class $(N=5183, e=2033)$. How do you feel? (You may use the computer at the front of class to access Python to make computations.)
+\end{exercise}
+
+\begin{exercise} You have been eavesdropping on a conversation between Joy and Ethan during one of Mike's lectures. You receive the message $666807$, and you know they used the public key $(N=945543, e=180103)$. How should Mike feel?
+\end{exercise}
+
+\begin{exercise} \textbf{Try this again with your new knowledge about $\phi$.} (Canada National Olympiad 2003) What are the final three digits of $2003^{2002^{2001}}$?
+\end{exercise}
+
+\begin{exercise} (Vishnu's house of morbid curiosities and grotesque logic.) What would happen if you found an RSA public key where the modulus $N$ had over 23 million digits? Is this super secure, or super weak?
+\end{exercise}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Lecture 3-1 - Zn    %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Lecture 3-3. Discrete Logarithm problem.}
+
+%  What is a Discrete Logarithm?
+%  Is it easy to solve?
+%  Diffie-Hellman Key Exchange
+
+%%% 3.3.1 Intro
+\subsection{Fix from last time.}
+
+\begin{dfn} The order of a unit $x \in \mathbb{Z}_n$ is the least number $k$ such that $a^k \equiv 1 \mod n$. [By Euler's theorem, this is $\phi(n)$ - LIE!].
+\end{dfn}
+
+Last time I said that $a, a^2, \ldots, a^{\phi(n)}$ runs through the units of $\mathbb{Z}_n$. This is just not true! For example, in $\mathbb{Z}_7$ we have $2^3 \equiv 1$, and powers of two cycle as $1,2,4$.
+
+The more correct thing to say is that the order of a unit in $\mathbb{Z}_n$ always divides $\phi(n)$, and, \textbf{Mike's Folly} if $n = p^k$ or $2p^k$ (for $p$ odd), then there \textit{is} an element $x$ in $\mathbb{Z}_p$ that has order $\phi(n)$.
+
+%%% 3.3.1 Intro
+\subsection{Introduction}
+
+\begin{question} How can Andrew and Brian come up with a secret password that both of them, while discussing everything in public?
+\end{question}
+
+The method we will use to solve this is the \textbf{Diffie-Hellman} procedure. It relies on the security of this type of problem:
+
+\textbf{Exercise}. How many times must you multiply $5$ by itself to get $11 \mod 23$? (A: 9)
+
+There are no known ways to effectively solve this. Note that it is the same as asking, what $x$ solves $5^x \equiv 11 \mod 23$. Or, if you want to be fancy, what is $\log_5(11)$, when understood to be taken $\mod 23$. This is called the \textbf{Discrete Logarithm problem}.
+
+%%% 3.3.2 DH
+\subsection{Diffie-Hellman Key Exchange}
+
+We will use the same major observation as RSA:
+
+\begin{observation} $(g^{a})^b = (g^{b})^a = g^{ab}$. So we have two ways of obtaining the same number $g^{ab}$.
+\end{observation}
+
+Diffie-Hellman is performed as follows:
+
+\begin{enumerate}
+	\item Andrew and Brian agree on a prime modulus $p$ and a base $g$. (These are public.) For example, $p = 23, g = 5$.
+    \item Andrew and Brian each choose a secret number $1< a,b < 23$. (These are secret.) E.g. $a=9$, $b=17$.
+    \item Andrew gives Brian $g^a \mod p$, and Brian gives Andrew $g^b \mod n$. (These are public). e.g. $g^a = 5^9 \equiv 11$ and $g^b = 5^{17} \equiv 15$.
+    \item Each person can compute $g^{ab} \mod n$: Andrew by $(g^a)^b$, Brian by $(g^b)^a$. That is the secret password. e.g. $(g^a)^b = 11^{17} = 22$.
+\end{enumerate}
+
+Let's perform an example in class. I suggest $p=53$, $g = 7$.
+
+%%% 3.3.3 Paint
+\subsection{Example using paint}
+
+There's a beautiful example on Wikipedia about two people coming up with a secret paint colour in the same way as Diffie-Hellman.
+
+\begin{enumerate}
+	\item Andrew and Brian agree on a base colour, like beige.
+    \item Andrew and Brian each choose a secret paint colour.
+    \item Andrew gives Brian (base+his colour), and Brian gives Andrew (base + his colour).
+    \item Each person can get the secret colour which is (base + Andrew's Colour + Brian's Colour).
+\end{enumerate}
+
+An eavesdropper who collects the exchanges will not be able to extract the private colours, or mix them to form the secret colour.
+\begin{center}
+\includegraphics[scale=0.5]{DH}
+\end{center}
+
+%%% 3.3.4 Knapsack
+\subsection{Subset sum Problems}
+
+In cryptography and security, many difficult problems can be turned into assets. Be on the lookout for difficult problems that are easy to generate, easy to verify a solution for, but difficult to solve initially.  These are called \textbf{trapdoor} problems; easy to fall into, but hard to get out of.
+
+One good example is the \textbf{Knapsack problem} or the \textbf{subset sum} problem. (Technically these are different problems.)
+
+\textbf{Exercise}. Can you make the sum $104$ from the numbers $12, 24, 25, 27, 29, 33, 44, 59, 63, 73$ (A: $12 + 33 + 59$.)
+
+\textbf{Subset Sum Problem}. Given a set $S$ of numbers and a target sum $t$, can $t$ be achieved as the sum of some subset of $S$? How do you find it? 
+
+For (well-chosen) collections of $S$ this problem is very computationally intense. There are some special cases where the solution is ``easy'' to find, even for humans.
+
+\textbf{Exercise}. Can you make the sum $80$ from the numbers $1, 3, 8, 14, 30, 62$ ?
+
+This problem can be solved using a \textbf{greedy algorithm} (Keep taking the largest thing you're allowed to take.) The reason is that this is a very quickly growing sequence.
+
+\begin{dfn} A sequence is \textbf{superincreasing} if the $n$th term is larger than the sum of all elements before it.
+\end{dfn}
+
+While this may seem like \textbf{superincreasing} sequences are not useful, they can be used to construct difficult knapsack problems. (We won't get in to that here.)
+
+In terms of security applications, a website would not want to store a list of passwords; if the website was hacked, then all the passwords would be stolen. Instead, a website can store instances of hard knapsack problems for each user. The ``password'' would be a solution to the individual problem. This way, even if the website gets hacked, no passwords have been compromised. 
+
+%%% 3.2.X Exercises
+\subsection{Exercises}
+
+Messages from last class: Rohan 3323, Devanshu 2597, Max+Sophia 235-563, Tara+Lizette 732, Toril 64553, Vivek 31115, Caroline 2171-821, Drake 1816 
+
+\begin{exercise} Find a subset of $51, 57, 34, 25, 46, 41, 25, 56, 64, 70$ with sum $151$.
+\end{exercise}
+
+\begin{exercise} Make a password with someone in the class using the Diffie-Hellman key exchange. Any information you agree on must be written on the board.
+\end{exercise}
+
+\begin{exercise} Find the smallest superincreasing sequence possible that starts with $1$ and has 10 terms. Assume that the sum of the first $n$ terms is greater or equal to the sum of the first $n-1$ terms.  
+\end{exercise}
+
+\begin{exercise} Create a challenging subset sum problem for someone in the class \ldots and solve someone else's subset sum problem.
+\end{exercise}
+
+\begin{exercise} Show Mike's Folly for $\mathbb{Z}_{11}$ by finding an element with order $10$, one with order $5$, and one with order $2$.
+\end{exercise}
+
+\begin{exercise} Explore Mike's Folly by finding the elements of $\mathbb{Z}_p$ that have order $\phi(n)$. Check this for various primes $p$.
+\end{exercise}
+
+\begin{exercise} (Vishnu's house of morbid curiosities and grotesque logic.) Mike's folly can be incredibly false. Show that in $\mathbb{Z}_{24}$ all its elements have order $1$ or $2$, but $\phi(n) = 8$. $\mathbb{Z}_{80}$ and $\mathbb{Z}_{120}$ also have very low maximum order, but large $\phi(n)$.
+\end{exercise}
+
+\end{document}

@@ -1,0 +1,96 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[utf8]{inputenc}
+
+% These packages are used for various math fonts. Url is for the bibliography
+\usepackage{amsmath,amssymb,amsfonts,amsthm,xcolor,url}
+
+% This is for making graphs
+\usepackage{tikz}
+% This is for citing code.
+\usepackage{minted}
+% This is a ham-fisted way to produce nice environments
+
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{fact}[thm]{Fact}
+
+\theoremstyle{definition}
+	\newtheorem{ex}[thm]{Example}
+	\newtheorem{exercise}{Exercise}
+	\newtheorem{remark}{Remark}
+	\newtheorem{question}[thm]{Question}
+    \newtheorem{observation}{Observation}
+    \newtheorem{thought}{Thought}
+    \newtheorem{application}{Application}
+	
+\numberwithin{thm}{section}
+
+\begin{document}
+
+\title{Number Theory - Lecture 9 Handout}
+%\author{Math Circle Summer 2018}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Introduction to this document %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% 3.1.X Exercises
+\subsection{Exercises}
+
+\begin{exercise} Check Wilson's Theorem for $n=5$, $n=6$ and $n=7$.
+\end{exercise}
+
+\begin{exercise} Discuss the relevance of Wilson's Theorem as a way to check if a number is prime. Is it practical to use it?
+\end{exercise}
+
+\begin{exercise} Show that if $n=9$, then $(n-1)! \equiv 0 \mod n$.
+\end{exercise}
+
+\begin{exercise} Show that if $n=15$, then $(n-1)! \equiv 0 \mod n$.
+\end{exercise}
+
+\begin{exercise} Show that if $n$ is composite, then $(n-1)! \equiv 0 \mod n$ unless, $n=4$, in which case $(n-1)! = 3! \equiv 2 \mod 4$. (Break it up into the cases where $n$ is a square, and when it isn't.)
+\end{exercise}
+
+\begin{exercise} Find a formula for the quantity $(m!)^{2} \mod p$, where $p=2m+1$. Prove it by rearranging $(p-1)! \mod p$.
+\end{exercise}
+
+\begin{exercise} Let ${p}$ be a prime number such that dividing ${p}$ by 4 leaves the remainder 1. Show that there is an integer ${n}$ such that $n^2 + 1$ is divisible by ${p}$. (Hint: Use the previous exercise.)
+\end{exercise}
+
+\begin{exercise} Show that $x^2 - x$ has more than $2$ solutions in $\mathbb{Z}_6$. Does this contradict Lagrange's theorem?
+\end{exercise}
+
+\begin{exercise} ``God's number'' is the least number of moves needed to get from any configuration of a Rubik's cube back to the starting configuration. Through intense computation it was determined that this number is 20. What does this mean for the Rubik's group?
+\end{exercise}
+
+\begin{exercise} Does $\mathbb{Z}_p [x]$ have any units besides the non-zero constants when $p$ is a prime? What about $\mathbb{Z}_n$ in general?
+\end{exercise}
+
+\begin{exercise} If $p$ is prime, determine the value of $(p-2) \mod p$.
+\end{exercise}
+
+\begin{exercise} Compute $94! \mod 97$. (Adapt the result and technique from the previous exercise.)
+\end{exercise}
+
+\begin{exercise} (Vishnu's house of morbid curiosities and grotesque logic.) There are ways to weaken the structure of a group.
+\begin{itemize}
+	\item A \textbf{monoid} is a group, except there may not be inverses for each element. For example, compressing a picture is a monoid.
+	\item A \textbf{semigroup} is a monoid, except it may not have an identity element.
+    \item A \textbf{magma} is a semigroup, except its operation may not be associative. 
+\end{itemize}
+
+Monoids and semigroups are useful when measuring compressions or information loss. For example, the rational numbers between $0 < \frac{p}{q} < 1$ form a semigroup. Come up with an example of a set and an operation that is a magma, but not a semigroup.
+\end{exercise}
+
+\begin{exercise} A \textbf{wilson prime} is a prime number $p$ such that $p^2$ divides $(p-1)! + 1$. There are only three known Wilson primes. Find them.
+\end{exercise}
+
+\end{document}

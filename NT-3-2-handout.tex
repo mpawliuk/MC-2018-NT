@@ -1,0 +1,105 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[utf8]{inputenc}
+
+% These packages are used for various math fonts. Url is for the bibliography
+\usepackage{amsmath,amssymb,amsfonts,amsthm,xcolor,url}
+
+% This is for making graphs
+\usepackage{tikz}
+% This is for citing code.
+\usepackage{minted}
+% This is a ham-fisted way to produce nice environments
+
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{fact}[thm]{Fact}
+
+\theoremstyle{definition}
+	\newtheorem{ex}[thm]{Example}
+	\newtheorem{exercise}{Exercise}
+	\newtheorem{remark}{Remark}
+	\newtheorem{question}[thm]{Question}
+    \newtheorem{observation}{Observation}
+    \newtheorem{thought}{Thought}
+    \newtheorem{application}{Application}
+	
+\numberwithin{thm}{section}
+
+\begin{document}
+
+\title{Number Theory - Lecture 10 Handout}
+%\author{Math Circle Summer 2018}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Introduction to this document %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[!ht]
+\begin{tabular}{l|l|l|l}
+$n$ & $\phi(n)$ & $n$ & $\phi(n)$ \\ \hline
+1   & 1         & 13  & 12        \\
+2   & 1         & 14  & 6         \\
+3   & 2         & 15  & 8         \\
+4   & 2         & 16  & 8         \\
+5   & 4         & 17  & 16        \\
+6   & 2         & 18  & 6         \\
+7   & 6         & 19  & 18        \\
+8   & 4         & 20  & 4         \\
+9   & 6         & 21  & 12        \\
+10  & 4         & 22  & 10        \\
+11  & 10        & 23  & 22        \\
+12  & 4         & 24  & 8        
+\end{tabular}
+\end{table}
+
+\begin{exercise} Find the value of $\phi(30)$ in two ways: (1) use the formula for $\phi(n)$, and (2) directly find the numbers between $1$ and $30$ that are relatively prime to $30$.
+\end{exercise}
+
+\begin{exercise} Compute $\phi(360)$ (\textit{no scope}).
+\end{exercise}
+
+\begin{exercise} What is the value of $ 20^{12} \mod 13$?
+\end{exercise}
+
+\begin{exercise} Using primes between $27$ and $100$ (or larger if you really want), set up your own public key. Put it on the board for people to send you messages. 
+\end{exercise}
+
+\begin{exercise} You may have noticed that all the $\phi(n)$ are even, except $\phi(1)$. Why is this? When is $\phi(n)$ divisible by $4$? Make a more general statement.
+\end{exercise}
+
+\begin{exercise} Suppose that $x$ divides $y$.  How do $\phi(x)$ and $\phi(y)$ relate to each other? Gather data, make a hypothesis, test it, refine it, then prove it.
+\end{exercise}
+
+\begin{exercise} Determine a pattern for
+\[
+	f(n) = \sum_{d | n} \phi(d)
+\]
+where the sum is taken over all divisors of $n$ (other than $1$). For example, $f(6) = \phi(1) + \phi(2) + \phi(3) + \phi(6)$. Prove it for any special cases you can, like primes, the product of two primes, or powers of primes.
+\end{exercise}
+
+\begin{exercise} Determine a pattern for
+\[
+	f(n) = \sum_{k, \gcd(k,n) = 1} k
+\]
+where the sum is taken over all numbers less than $n$, that are relatively prime with $n$. For example, $g(10) = 1 + 3 + 7 + 9$. Prove it for any special cases you can, like primes, the product of two primes, or powers of primes.
+\end{exercise}
+
+\begin{exercise} Caroline has sent you the message $3011$ using the public key from class $(N=5183, e=2033)$. How do you feel? (You may use the computer at the front of class to access Python to make computations.)
+\end{exercise}
+
+\begin{exercise} You have been eavesdropping on a conversation between Joy and Ethan during one of Mike's lectures. You receive the message $666807$, and you know they used the public key $(N=945543, e=180103)$. How should Mike feel?
+\end{exercise}
+
+\begin{exercise} \textbf{Try this again with your new knowledge about $\phi$.} (Canada National Olympiad 2003) What are the final three digits of $2003^{2002^{2001}}$?
+\end{exercise}
+
+\begin{exercise} (Vishnu's house of morbid curiosities and grotesque logic.) What would happen if you found an RSA public key where the modulus $N$ had over 23 million digits? Is this super secure, or super weak?
+\end{exercise}
+\end{document}

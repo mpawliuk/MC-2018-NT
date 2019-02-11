@@ -1,0 +1,105 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[utf8]{inputenc}
+
+% These packages are used for various math fonts. Url is for the bibliography
+\usepackage{amsmath,amssymb,amsfonts,amsthm,xcolor,url}
+
+% This is for making graphs
+\usepackage{tikz}
+% This is for citing code.
+\usepackage{minted}
+% This is a ham-fisted way to produce nice environments
+
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{fact}[thm]{Fact}
+
+\theoremstyle{definition}
+	\newtheorem{ex}[thm]{Example}
+	\newtheorem{exercise}{Exercise}
+	\newtheorem{remark}{Remark}
+	\newtheorem{question}[thm]{Question}
+    \newtheorem{observation}{Observation}
+    \newtheorem{thought}{Thought}
+    \newtheorem{application}{Application}
+	
+\numberwithin{thm}{section}
+
+\begin{document}
+
+\title{Number Theory - Lecture 8 Handout}
+%\author{Math Circle Summer 2018}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Introduction to this document %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercise} Does the following system of equations have a solution?
+\[
+	x \equiv 2 \mod 5, \text{   and  } x \equiv 3 \mod 15.
+\]
+Explain why, and explain why the CRT does not guarantee it has a solution.
+\end{exercise}
+
+\begin{exercise} Propose a method for finding the final three digits of $126^{2018}$, then actually find them. What other numbers does your method (easily) work for?
+\end{exercise}
+
+\begin{exercise} [Problem from Brilliant.org] Show that there are 10 consecutive numbers that are all divisible by a perfect square. Use the following system of equations:
+\begin{itemize}
+	\item $x \equiv -1 \mod n_1^2$,
+    \item $x \equiv -2 \mod n_2^2$,
+    \item \ldots
+    \item $x \equiv -9 \mod n_{10}^2$,
+\end{itemize}
+What $n_i$ can you choose that will allow you to use the CRT? Once you've solved this, generalize the statement; what parts of it can be modified?
+\end{exercise}
+
+\begin{exercise} (IMO  1989) (Use the idea of the previous exercise.) Prove  that  for  every  positive  integer $n$, there  exists $n$ consecutive positive integers such that none of them is a power of a prime. \footnote{If you like these types of contest problems, see the notes by Evan Chen from 2015 called ``The Chinese Remainder Theorem''.}
+\end{exercise}
+
+\begin{exercise} (IMO  1989) (Use the idea of the previous exercise.) Prove  that  for  every  positive  integer $n$, there  exists $n$ consecutive positive integers such that none of them is a power of a prime. \footnote{If you like these types of contest problems, see the notes by Evan Chen from 2015 called ``The Chinese Remainder Theorem''.}
+\end{exercise}
+
+Recall that yesterday, in the exercises, we showed that Bezout's Identity could always be used to solve equations of the form $ax \equiv 1 \mod n$ if $\gcd(a,n) = 1$. A solution to this is called the \textbf{multiplicative inverse of $a$, mod $n$}. We denote this by $a^{-1}$ (but \textit{never} write $a^{-1} = \frac{1}{a}$).
+
+\begin{exercise} Show that if $\gcd(a,n) = 1$, then $ax \equiv 1 \mod n$ has at most one solution between $0$ and $n$. In other words, $a^{-1}$ is unique.
+\end{exercise}
+
+\begin{exercise} Consider the system of equations from the CRT, (with the same conditions as in that theorem).
+\begin{itemize}
+	\item $x \equiv a_1 \mod n_1$,
+    \item $x \equiv a_2 \mod n_2$,
+    \item $x \equiv a_3 \mod n_3$.
+\end{itemize}
+Let $N = n_1 \cdot n_2 \cdot n_3$. Show that
+\[
+	x = a_1 b_1 \frac{N}{n_1} + a_2 b_2 \frac{N}{n_2} + a_3 b_3 \frac{N}{n_3} \mod N
+\]
+is a solution to the equations, where $b_i$ is a solution to $b_i \left( \frac{N}{n_i}\right) \equiv 1 \mod n_i$.
+\end{exercise}
+
+\begin{exercise} Use the previous exercise to give an alternate solution to the classic CRT problem:
+\begin{itemize}
+	\item $x \equiv 2 \mod 3$,
+    \item $x \equiv 3 \mod 5$,
+    \item $x \equiv 2 \mod 7$.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise} (Vishnu's house of morbid curiosities and grotesque logic.) Does the following system of equations have an integer solution?
+\[
+	x \equiv 1 \mod \frac{3}{2} \text{  and  }x \equiv 2 \mod \frac{7}{3}.
+\]
+\end{exercise}
+
+\begin{exercise} Let $n$ be a positive integer. Find the number of $x$, as a function of $n$, with $0 \leq x < n$ that satisfy $x^2 \equiv x \mod n$. (As a courtesy, if you correctly compute all the values up to $n=6$ I will give you the data up to $n=100$.)
+\end{exercise}
+
+\end{document}
