@@ -1,0 +1,74 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[utf8]{inputenc}
+
+% These packages are used for various math fonts. Url is for the bibliography
+\usepackage{amsmath,amssymb,amsfonts,amsthm,xcolor,url}
+
+% This is for making graphs
+\usepackage{tikz}
+% This is for citing code.
+\usepackage{minted}
+% This is a ham-fisted way to produce nice environments
+
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{fact}[thm]{Fact}
+
+\theoremstyle{definition}
+	\newtheorem{ex}[thm]{Example}
+	\newtheorem{exercise}{Exercise}
+	\newtheorem{remark}{Remark}
+	\newtheorem{question}[thm]{Question}
+    \newtheorem{observation}{Observation}
+    \newtheorem{thought}{Thought}
+    \newtheorem{application}{Application}
+	
+\numberwithin{thm}{section}
+
+\begin{document}
+
+\title{Number Theory - Lecture 4 Handout}
+%\author{Math Circle Summer 2018}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Introduction to this document %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercise} Which of the following pairs of numbers (1,2,3,4,5,6,7,8,9,10) have GCD 1? Make a hypothesis from the data you gather, then test it.
+\end{exercise}
+
+\begin{exercise} Find the LCM of the following pairs of numbers $(1,2,3,4,5,6,7,8,9,10)$. Make a hypothesis from the data you gather, then test it.
+\end{exercise}
+
+\begin{exercise} Show that $a\cdot b = \text{LCM}(a,b)\cdot\text{GCD}(a,b)$. (Use the prime decomposition of $a$ and $b$.)
+\end{exercise}
+
+\begin{exercise} Use the Euclidean division algorithm with $n = 20$ and $m = 2$. How many steps does it take to find the answer? (Notice that you can probably just say what the answer is without having to use this algorithm.)
+\end{exercise}
+
+\begin{exercise} Does the Euclidean division algorithm work for negative numbers? What happens with $n = -7, m = 3$ or if $n = 7, m = -3$, or if $n = -7, m=-3$? Does the proof we gave still work, or does it need to be adapted? If so, try to fix it.
+\end{exercise}
+
+\begin{exercise} Prove or disprove: If $\textbf{GCD}(a,b) = 1$ and $\textbf{GCD}(b,c) = 1$, then $\textbf{GCD}(a,c) = 1$.
+\end{exercise}
+
+\begin{exercise} Prove or disprove: For every pair $a,b$ we have $\textbf{GCD}(a,b) | \textbf{LCM}(a,b)$.
+\end{exercise}
+
+\begin{exercise} Let $\phi(n)$ be the cardinality (or number of elements) of the collection of all $1 \leq i < n$ such that $\gcd(i,n) = 1$. Show that $\phi(14) = |\{1,3,5,9,11,13\}| = 6$.
+\end{exercise}
+
+\begin{exercise} The largest $\phi(n)$ can be is $n-1$. Find some examples where this happens. Make a hypothesis from the data you gather, then test it.
+\end{exercise}
+
+\begin{exercise} What is the smallest value of $\phi(n)$ you can find? What about the smallest value of $\frac{\phi(n)}{n}$?
+\end{exercise}
+
+\end{document}

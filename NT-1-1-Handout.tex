@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[utf8]{inputenc}
+
+% These packages are used for various math fonts. Url is for the bibliography
+\usepackage{amsmath,amssymb,amsfonts,amsthm,xcolor,url}
+
+% This is for making graphs
+\usepackage{tikz}
+% This is for citing code.
+\usepackage{minted}
+% This is a ham-fisted way to produce nice environments
+
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{fact}[thm]{Fact}
+
+\theoremstyle{definition}
+	\newtheorem{ex}[thm]{Example}
+	\newtheorem{exercise}{Exercise}
+	\newtheorem{remark}{Remark}
+	\newtheorem{question}[thm]{Question}
+    \newtheorem{observation}{Observation}
+    \newtheorem{thought}{Thought}
+    \newtheorem{application}{Application}
+	
+\numberwithin{thm}{section}
+
+\begin{document}
+
+\title{Number Theory - Lecture 1 Handout}
+%\author{Math Circle Summer 2018}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Introduction to this document %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Lecture 1 Handout}
+
+%%% 1.3 Introduction to Logic
+\subsection{Introduction to Logic}
+
+We will use mathematical logic to help us be precise when talking about numbers and their properties. These are tools for us to use to help us check the correctness of our ideas and arguments.
+
+\textbf{WARNING!} This section is dense, and can be scary. The way to approach it is by thinking of many examples for each concept. We will use this section as a reference, so it's okay if you don't process everything immediately.
+
+\textbf{True or False}. A statement can be either \textbf{True} or \textbf{False}. We want to know whether some statements about number theory are true or false. 
+
+For example, ``Every number is even." is false, and ``There is an even number larger than 101" is true.
+
+\textbf{Negation}. The negation of a statement is the precise opposite of the statement. We write $\neg P$. A statement and its negation always have opposite truth values; one is true, and the other false. 
+
+For example, the negation of ``Every number is even" is ``there is a number that is not even". The negation of ``There is an even number larger than 101." is ``There are no even numbers larger than 101" or you can say ``every number larger than 101 is not even". 
+
+\textbf{Implication}. One statement implies another if you can establish the second one from the first. We write $P \Rightarrow Q$. We also say ``if $P$, then $Q$".
+
+For example, ``$n$ is a multiple of $4$" implies "$n$ is even.". Also, ``$n$ is prime and greater than $2$" implies ``$n$ is odd".
+
+\textbf{Converse}. The converse of an implication is a statement made by reversing the direction of the implication.
+
+For example, ``If $n$ is a multiple of $4$, then $n$ is even." has converse ``If $n$ is even, then $n$ is a multiple of $4$." Be careful! That first implication is true, but its converse is false. e.g. $6$ is even, but is not a multiple of $4$.
+
+\textbf{Contrapositive}. The contrapositive of an implication $P \Rightarrow Q$ is the statement $\neg Q \Rightarrow P$. 
+
+For example, the contrapositive of ``If I go to the gym, then I will work out.'' is ``If I'm not working out, then it must be that I'm not at the gym."
+
+This seems strange, but it's very useful because \textbf{an implication and its converse are always both true, or both false}. So if you want to establish an implication, you can instead establish the contrapositive.
+
+\textbf{Establishing implications}. To show that an implication $P \Rightarrow Q$ is true, you need to show that $Q$ is true, whenever $P$ is true. That is, you can use $P$ to try to establish $Q$.
+
+To show that an implication $P \Rightarrow Q$ is false, you need to find an example of $P$ being true, but $Q$ is false. For example, ``If I carry an umbrella, then it will rain." is false because yesterday I carried an umbrella but it didn't rain! (This is called a \textbf{counterexample}.)
+
+\textbf{If and only if}. Two statements $P$ and $Q$ are equivalent if $P \Rightarrow Q$ and $Q \Rightarrow P$. We write $P \Leftrightarrow Q$ and say ``$P$ if and only if $Q$" ( or ``$P$ iff $Q$" for short).
+
+\textbf{Or}. When mathematicians use ``or'', they mean ``P is true, or Q is true, or both are true''. For example ``12 is even or 12 is a multiple of 6'' is true.
+
+\textbf{Universal quantifiers}. We will often want to talk about \text{all} numbers, or \textit{every} number of a certain type. If we want to be super technical we can write $\forall$ which means ``for all''.
+
+For example, ``Every number is even'' and ``All primes greater than 2 are odd'' use universal quantifiers.
+
+\textbf{Establishing universal statements}. To show that a universal statement is true you need to \ldots show that it's true for every thing it is talking about!
+
+To show that a universal statement is false you only need to give one example where it is false. e.g. ``Every number is even" is shown false by using the \textbf{counterexample} $3$.
+
+\textbf{Existential quantifiers}. Statements that say ``there exists a thing'' or ``there is a thing'' are called existential statements. We sometimes use $\exists$ (for there exists).
+
+For example, ``There is a multiple of 11 without repeating digits" and ``There exists a prime number between 20 and 25'' are both existential statements.
+
+\textbf{Establishing existential statements}. To show that an existential statement is true you need to \ldots show that such a thing actually exists! You don't need to produce the actual thing (a \textbf{witness}), but it's often easier that way.
+
+For example, ``There is a multiple of 11 without repeating digits'' is shown with the witness $132 = 11 \cdot 12$. The statement ``In any collection of 10 numbers, there is one that is at least as large as the average of all of them.'' can be proved without actually producing a witness.
+
+To show that an existential quantifier is false, you need to show that a witness cannot exist, which is the same as showing that all potential numbers are not witnesses.
+
+For example, ``There is an even prime number greater than 101" is false, since every even number $n$ larger than 101 must be divisible by $2$, and $2<n$, so $n$ is not prime.
+
+\begin{table}[ht]\label{table:logic}
+\begin{tabular}{p{2cm}|p{2.5cm}|p{3cm}|p{3cm}|p{2.2cm}}
+\textbf{Symbols}            & \textbf{Words}          & \textbf{To prove a statement is true}           & \textbf{To prove a statement is false}             & \textbf{Notes}                   \\\hline
+$\neg P$                    & Negation                &                                                 &                                                    &                                  \\\hline
+$P \Rightarrow Q$           & Implication             & Assume $P$, deduce $Q$.                         & Show that $Q$ can be false, even when $P$ is true. &                                  \\\hline
+$Q \Rightarrow P$           & Converse                & Assume $Q$, deduce $P$.                         & Show that $P$ can be false, even when $Q$ is true. This is a counterexample. &                                  \\\hline
+$P \Leftrightarrow Q$       & If and only if          & Show $P \Rightarrow Q$ and $Q \Rightarrow P$.   & Show that one of the directions is false.          &                                  \\\hline
+$\neg Q \Rightarrow \neg P$ & Contrapositive          & Assume $\neg Q$, deduce $\neg P$.               & (Same as implication)                              & Same truth value as implication. \\\hline
+$\forall x P(x)$            & Universal               & Show $x$ has property $P(x)$ for every $x$.     & Find an $x$ without property $P(x)$. This is a counterexample.               &                                  \\\hline
+$\exists x P(x)$            & Existential             & Give an example of an $x$ with property $P(x)$. & Show that all $x$ fail to have property $P(x)$.    &                                  \\\hline
+$P \wedge Q$                  & And                     & Show $P$ and $Q$ are both true.                 & Show that $P$ is false, or $Q$ is false.           &                                  \\\hline
+$P \vee Q$                  & Or                      & Show $P$ is true, or $Q$ is true (or both).     & Show that both $P$ is false, and $Q$ is false.     &                                  \\\hline
+                            & Proof by contradiction  & Assume $P$ and $\neg Q$. Derive a contraction.  &                                                    & For proving implications.        \\\hline
+                            & Proof by contrapositive & Assume $\neg Q$, deduce $\neg P$.               &                                                    & For proving implications.       
+\end{tabular}
+\end{table}
+
+%%% 1.4 Exercises
+\subsection{Exercises}
+
+\begin{exercise} Use the divisibility rules to see if $n= 10890$ is a multiple of $2,3, \ldots, 11$.
+\end{exercise}
+
+\begin{exercise} Pair up these statements with their negation:
+\begin{enumerate}
+	\item ``Every number is a multiple of 2 and 3.''
+    \item ``No number is a multiple of 6.''
+    \item ``There is a number that is a multiple of 6.''
+    \item ``There exists a number that is not a multiple of either 2 or 3.''
+    \item ``Every multiple of 6 is also a multiple of $2$ and $3$.''
+    \item ``There is a number divisible by $2$ and $3$ that is not a multiple of $6$.''
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise} Is the statement ``There is no number is both even and odd'' a universal statement or an existential statement in your opinion? Can you write it in a way that makes it appear like a universal statement? 
+\end{exercise}
+
+\begin{exercise} If $P \Rightarrow Q$ and $Q \Rightarrow R$, are you allowed to conclude that $P \Rightarrow R$?
+\end{exercise}
+
+\begin{exercise} Does $P \Rightarrow P$?
+\end{exercise}
+
+\begin{exercise} In the land of Martinia, every person is over 100 years old. Also, in the land of Martinia, every person is less than 18 years old. How many people live in Martinia?
+\end{exercise}
+
+\begin{exercise} How are the statements ``$n$ is a composite number'' and ``$n$ is odd'' related? One of them implies the other, they are equivalent, or neither one implies the other? Establish each of your claims!
+\end{exercise}
+
+\end{document}
