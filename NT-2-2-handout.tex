@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[utf8]{inputenc}
+
+% These packages are used for various math fonts. Url is for the bibliography
+\usepackage{amsmath,amssymb,amsfonts,amsthm,xcolor,url}
+
+% This is for making graphs
+\usepackage{tikz}
+% This is for citing code.
+\usepackage{minted}
+% This is a ham-fisted way to produce nice environments
+
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{fact}[thm]{Fact}
+
+\theoremstyle{definition}
+	\newtheorem{ex}[thm]{Example}
+	\newtheorem{exercise}{Exercise}
+	\newtheorem{remark}{Remark}
+	\newtheorem{question}[thm]{Question}
+    \newtheorem{observation}{Observation}
+    \newtheorem{thought}{Thought}
+    \newtheorem{application}{Application}
+	
+\numberwithin{thm}{section}
+
+\begin{document}
+
+\title{Number Theory - Lecture 6 Handout}
+%\author{Math Circle Summer 2018}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Introduction to this document %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercise} Write down the general set of solutions to $84x + 35y = 7$. Recall that yesterday we found a solution to this equation.
+\end{exercise}
+
+\begin{exercise} \label{ex:bens} How many ways are there to make \$100 by only using \$10 bills and \$20 bills? To solve this, set up a linear Diophantine equation and find its full set of solutions. Then decide how many of those solutions give reasonable physical interpretations in this question.
+\end{exercise}
+
+\begin{exercise} You are stranded on an island without a calculator, but lots of paper and working pens. Describe in a step-by-step manner how you would find all solutions to $2019x + 93y = 11$.
+\end{exercise}
+
+\begin{exercise} You are stranded on an island without a calculator, but lots of paper and working pens. Describe in a step-by-step manner how you would find all solutions to $2019x + 93y = 12$.
+\end{exercise}
+
+\begin{exercise} Show that if $\gcd(a,c)=1$ and $\gcd(b,c)=1$ then $\gcd(ab,c) = 1$. (Hint: Use Bezout's identity.)
+\end{exercise}
+
+\begin{exercise} (Related to exercise \ref{ex:bens}.) Make a conjecture about the number of \textit{positive} integer solutions (both $x,y>0$) an equation $ax+by=n$ can have when $a,b,n >0$. Prove it. 
+\end{exercise}
+
+\begin{exercise} Make a conjecture about the number of \textit{mixed} integer solutions ($x$ and $y$ have opposite signs) an equation $ax+by=n$ can have when $a,b,n >0$. Prove it. 
+\end{exercise}
+
+\newpage
+
+The next three exercises prove that our theorem about the solutions of a linear Diophantine equation is correct.
+
+\begin{exercise} Show that if $x_0, y_0$ is a solution to $ax+by=n$, then every number of the form
+\[
+	\left(x_0 + m\frac{b}{\gcd(a,b)}, y_0 + m\frac{a}{\gcd(a,b)} \right)
+\]
+is also a solution to $ax+by=n$.
+\end{exercise}
+
+\begin{exercise} (You will need this for the next exercise.) Show that $\frac{a}{\gcd(a,b)}$ and $\frac{b}{\gcd(a,b)}$ have $\gcd$ 1.
+\end{exercise}
+
+\begin{exercise} Show that if $x_0, y_0$ and $x_1, y_1$ are both solutions to $ax+by=n$, then
+\[
+	\frac{a}{\gcd(a,b)}(x_0 - x_1) = -\frac{b}{\gcd(a,b)}(y_0 - y_1)
+\]
+and so by the previous exercise, there must be an integer $m$ such that $(x_0 - x_1) = m \frac{b}{\gcd(a,b)}$ and $y_0-y_1 = -m \frac{b}{\gcd(a,b)}$.
+\end{exercise}
+
+\begin{exercise} (The chicken McNugget problem) Chicken McNuggets come in packages of 3, 9 or 20. We know that since $\gcd(3,20) = 1$ every combination at or above $(20-1)(3-1) = 38$ can be made. What are the impossible combinations between $1$ and $37$?
+\end{exercise}
+
+\begin{exercise} (AIME 1994 Problem 11) Ninety-four bricks, each measuring $4''\times10''\times19'',$ are to be stacked one on top of another to form a tower 94 bricks tall. Each brick can be oriented so it contribues $4''\,$ or $10''\,$ or $19''\,$ to the total height of the tower. How many different tower heights can be achieved using all ninety-four of the bricks?
+\end{exercise}
+
+\end{document}
